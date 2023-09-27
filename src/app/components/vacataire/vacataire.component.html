@@ -1,0 +1,11 @@
+<button (click)="addVacataire('Je suis un nouveau message', 'Christopher')">Ajouter un vacataire</button>
+
+<div *ngFor="let vacataire of vacataires">
+    <h3>Je suis un vacataires</h3>
+    <ul>
+        <li>ID : {{vacataire._id}}</li>
+        <li>Message : {{vacataire.message}}</li>
+        <li>Author : {{vacataire.author}}</li>
+    </ul>
+    <button (click)="deleteVacataire(vacataire._id)">Supprimer le vacataire</button>
+</div>
