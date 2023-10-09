@@ -10,6 +10,14 @@ export class VacataireComponent {
   
   public vacataires: any[] = []
 
+  form = {
+    name : "",
+    lastName: "",
+    phone: "",
+    email: "", 
+    github: ""
+  }
+
   constructor(private dataService: DataService) {}
 
   ngOnInit() {
@@ -18,9 +26,9 @@ export class VacataireComponent {
     });
   }
 
-  addVacataire(message: string, author: string) {
+  addVacataire(name: string, lastName: string, phone: string, email: string, github: string) {
 
-    this.dataService.addVacataire(message, author).subscribe({
+    this.dataService.addVacataire(name, lastName, phone, email, github).subscribe({
       next: (response) => {
         window.location.reload()
       },
@@ -48,5 +56,10 @@ export class VacataireComponent {
         window.location.reload()
       }
     });    
+  }
+
+  hello() {
+    console.log(this.form);
+    
   }
 }

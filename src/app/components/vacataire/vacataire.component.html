@@ -1,11 +1,67 @@
-<button (click)="addVacataire('Je suis un nouveau message', 'Christopher')">Ajouter un vacataire</button>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Ajouter un vacataire
+</button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form 
+        class="row g-2"
+        name="createVacataireForm"
+        #f="ngForm"
+        >
+          <div class="form-floating mb-2">
+            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="form.name" #name="ngModel" placeholder="name@example.com">
+            <label for="name">Prénom :</label>
+          </div>
+
+          <div class="form-floating mb-2">
+            <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="form.lastName" #lastName="ngModel" placeholder="name@example.com">
+            <label for="lastName">Nom de famille :</label>
+          </div>
+
+          <div class="form-floating mb-2">
+            <input type="text" class="form-control" id="phone" name="phone" [(ngModel)]="form.phone" #phone="ngModel" placeholder="name@example.com">
+            <label for="phone">Numéro de téléphone :</label>
+          </div>
+
+          <div class="form-floating mb-2">
+            <input type="email" class="form-control" id="email" name="email" [(ngModel)]="form.email" #email="ngModel" placeholder="name@example.com">
+            <label for="email">Adresse email :</label>
+          </div>
+
+          <div class="form-floating mb-2">
+            <input type="text" class="form-control" id="github" name="github" [(ngModel)]="form.github" #github="ngModel" placeholder="name@example.com">
+            <label for="github ">Profil GitHub :</label>
+          </div>
+          
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" (click)="addVacataire(form.name, form.lastName, form.phone, form.email, form.github)">Créer le vacataire</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <button (click)="addVacataire('Christopher', 'Marie-Angélique')">Ajouter un vacataire</button> -->
 
 <div *ngFor="let vacataire of vacataires">
     <h3>Je suis un vacataires</h3>
     <ul>
         <li>ID : {{vacataire._id}}</li>
-        <li>Message : {{vacataire.message}}</li>
-        <li>Author : {{vacataire.author}}</li>
+        <li>Name : {{vacataire.name}}</li>
+        <li>Nom de famille : {{vacataire.lastName}}</li>
+        <li>numéro de téléphone : {{vacataire.phone}}</li>
+        <li>email : {{vacataire.email}}</li>
+        <li>github : {{vacataire.github}}</li>
+        <li>skills : {{vacataire.skills}}</li>
     </ul>
     <button (click)="deleteVacataire(vacataire._id)">Supprimer le vacataire</button>
 </div>

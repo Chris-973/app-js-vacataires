@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class DataService {
 
-  private apiUrl  = 'https://ap-js-vacataires-api.vercel.app/vacataires';
+  private apiUrl  = 'http://localhost:3000/vacataires';
 
   constructor(private http: HttpClient) { }
 
@@ -15,9 +15,9 @@ export class DataService {
     return this.http.get(this.apiUrl)    
   }
 
-  addVacataire(message: string, author: string): Observable<any> {
+  addVacataire(name: string, lastName: string, phone: string, email: string, github: string): Observable<any> {
     const url = this.apiUrl + "/newVacataire";
-    return this.http.post(url, {message, author});   
+    return this.http.post(url, {name, lastName, phone, email, github});   
   }
 
   deleteVacataire(id: string): Observable<any> {
