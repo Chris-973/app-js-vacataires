@@ -1,12 +1,12 @@
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createVacataireModal">
   Ajouter un vacataire
 </button>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="createVacataireModal" tabindex="-1" aria-labelledby="createVacataireModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="createVacataireModalLabel">Créer un Vacataire</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -14,37 +14,58 @@
         class="row g-2"
         name="createVacataireForm"
         #f="ngForm"
+        (ngSubmit)="f.form.valid && onSubmit(false, form.name, form.lastName, form.phone, form.email, form.github)"
         >
           <div class="form-floating mb-2">
-            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="form.name" #name="ngModel" placeholder="name@example.com">
+            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="form.name" #name="ngModel" placeholder="name@example.com" required>
             <label for="name">Prénom :</label>
+
+            <div class="form_error" *ngIf="name.errors && f.submitted">
+              <div *ngIf="name.errors['required']">Le nom est requis !</div>
+            </div>
           </div>
 
           <div class="form-floating mb-2">
-            <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="form.lastName" #lastName="ngModel" placeholder="name@example.com">
+            <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="form.lastName" #lastName="ngModel" placeholder="name@example.com" required>
             <label for="lastName">Nom de famille :</label>
+
+            <div class="form_error" *ngIf="lastName.errors && f.submitted">
+              <div *ngIf="lastName.errors['required']">Le nom de famille est requis !</div>
+            </div>
           </div>
 
           <div class="form-floating mb-2">
-            <input type="text" class="form-control" id="phone" name="phone" [(ngModel)]="form.phone" #phone="ngModel" placeholder="name@example.com">
+            <input type="text" class="form-control" id="phone" name="phone" [(ngModel)]="form.phone" #phone="ngModel" placeholder="name@example.com" required>
             <label for="phone">Numéro de téléphone :</label>
+
+            <div class="form_error" *ngIf="phone.errors && f.submitted">
+              <div *ngIf="phone.errors['required']">Le numéro de téléphone est requis !</div>
+            </div>
           </div>
 
           <div class="form-floating mb-2">
-            <input type="email" class="form-control" id="email" name="email" [(ngModel)]="form.email" #email="ngModel" placeholder="name@example.com">
+            <input type="email" class="form-control" id="email" name="email" [(ngModel)]="form.email" #email="ngModel" placeholder="name@example.com" required>
             <label for="email">Adresse email :</label>
+
+            <div class="form_error" *ngIf="email.errors && f.submitted">
+              <div *ngIf="email.errors['required']">L'adresse email est requise !</div>
+            </div>
           </div>
 
           <div class="form-floating mb-2">
-            <input type="text" class="form-control" id="github" name="github" [(ngModel)]="form.github" #github="ngModel" placeholder="name@example.com">
+            <input type="text" class="form-control" id="github" name="github" [(ngModel)]="form.github" #github="ngModel" placeholder="name@example.com" required>
             <label for="github ">Profil GitHub :</label>
+
+            <div class="form_error" *ngIf="github.errors && f.submitted">
+              <div *ngIf="github.errors['required']">Le profil github est requis !</div>
+            </div>
           </div>
-          
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+            <button type="submit" class="btn btn-primary">Créer le vacataire</button>
+          </div>  
         </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-primary" (click)="addVacataire(form.name, form.lastName, form.phone, form.email, form.github)">Créer le vacataire</button>
       </div>
     </div>
   </div>
@@ -63,5 +84,78 @@
         <li>github : {{vacataire.github}}</li>
         <li>skills : {{vacataire.skills}}</li>
     </ul>
-    <button (click)="deleteVacataire(vacataire._id)">Supprimer le vacataire</button>
+
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" [attr.data-bs-target]="'#editVacataireModal-' + vacataire._id" (click)="initializeFormWithId(vacataire._id)">Modifier le vacataire</button>
+      <button type="button" class="btn btn-danger me-2  " (click)="deleteVacataire(vacataire._id)">Supprimer le vacataire</button>
+    </div>
+
+    <div class="modal fade" [id]="'editVacataireModal-' + vacataire._id" tabindex="-1" aria-labelledby="editVacataireModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editVacataireModalLabel">Modifier le Vacataire : {{vacataire.name}}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form 
+            class="row g-2"
+            name="createVacataireForm"
+            #f="ngForm"
+            (ngSubmit)="f.form.valid && onSubmit(true, form.name, form.lastName, form.phone, form.email, form.github)"
+            >
+              <div class="form-floating mb-2">
+                <input type="text" class="form-control" id="name" name="name" [(ngModel)]="form.name" #name="ngModel" placeholder="name@example.com" value="test" required>
+                <label for="name">Prénom :</label>
+    
+                <div class="form_error" *ngIf="name.errors && f.submitted">
+                  <div *ngIf="name.errors['required']">Le nom est requis !</div>
+                </div>
+              </div>
+    
+              <div class="form-floating mb-2">
+                <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="form.lastName" #lastName="ngModel" placeholder="name@example.com" required>
+                <label for="lastName">Nom de famille :</label>
+    
+                <div class="form_error" *ngIf="lastName.errors && f.submitted">
+                  <div *ngIf="lastName.errors['required']">Le nom de famille est requis !</div>
+                </div>
+              </div>
+    
+              <div class="form-floating mb-2">
+                <input type="text" class="form-control" id="phone" name="phone" [(ngModel)]="form.phone" #phone="ngModel" placeholder="name@example.com" required>
+                <label for="phone">Numéro de téléphone :</label>
+    
+                <div class="form_error" *ngIf="phone.errors && f.submitted">
+                  <div *ngIf="phone.errors['required']">Le numéro de téléphone est requis !</div>
+                </div>
+              </div>
+    
+              <div class="form-floating mb-2">
+                <input type="email" class="form-control" id="email" name="email" [(ngModel)]="form.email" #email="ngModel" placeholder="name@example.com" required>
+                <label for="email">Adresse email :</label>
+    
+                <div class="form_error" *ngIf="email.errors && f.submitted">
+                  <div *ngIf="email.errors['required']">L'adresse email est requise !</div>
+                </div>
+              </div>
+    
+              <div class="form-floating mb-2">
+                <input type="text" class="form-control" id="github" name="github" [(ngModel)]="form.github" #github="ngModel" placeholder="name@example.com" required>
+                <label for="github ">Profil GitHub :</label>
+    
+                <div class="form_error" *ngIf="github.errors && f.submitted">
+                  <div *ngIf="github.errors['required']">Le profil github est requis !</div>
+                </div>
+              </div>
+    
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+                <button type="submit" class="btn btn-primary">Modifier le vacataire</button>
+              </div>  
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>

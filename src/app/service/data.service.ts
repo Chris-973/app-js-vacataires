@@ -24,4 +24,16 @@ export class DataService {
     const url = this.apiUrl + '/deleteVacataire/' + id;
     return this.http.delete(url);   
   }
+
+  editVacataire(id: String, name: string, lastName: string, phone: string, email: string, github: string): Observable<any> {
+    const url = this.apiUrl + '/editVacataire/' + id;
+    const body = {
+      name: name,
+      lastName: lastName,
+      phone: phone,
+      email: email,
+      github: github
+    }
+    return this.http.put(url, body);   
+  }
 }
