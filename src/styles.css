@@ -1,1 +1,43 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 100px 0 100px;
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+}
+
+.navlogo img {
+    width: 100px;
+}
+
+.navbar,
+.nav-btn,
+ul {
+    display: flex;
+    gap: 20px;
+}
+
+.navbar,
+.nav-btn,
+a {
+    color: #111;
+    font-size: 18px;
+}
+
+.nav-btn .button{
+    background-color: red;
+    padding: 10px;
+    border-radius: 4px;
+    color: #fff;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}

@@ -22,12 +22,30 @@ export class VacataireComponent {
 
   ngOnInit() {
     this.dataService.getVacataire().subscribe((data: any) => {
-      this.vacataires = data;               
-    });
+      this.vacataires = data;                     
+    });    
+  }
+
+  /**
+   * permet de déterminer le style de la div status selon le status du vacataire
+   * 
+   * @param status : le status du vacataire
+   * @returns : le style de la div status du vacataire
+   */
+  getVacataireStatusClass(status: string): string {
+    switch (status) {
+      case 'en attente':
+        return 'status-gray';
+      case 'admis':
+        return 'status-green';
+      default:
+        return 'status-red';
+    }
   }
 
   initializeFormWithId(id: string) {
     const vacataire = this.vacataires.find(vacataire => vacataire._id === id);
+    
 
     if (vacataire) {
       this.form._id = vacataire._id;
@@ -39,29 +57,8 @@ export class VacataireComponent {
     }
   }
 
-  addVacataire(name: string, lastName: string, phone: string, email: string, github: string) {
-
-    this.dataService.addVacataire(name, lastName, phone, email, github).subscribe({
-      next: (response) => {
-        window.location.reload()
-      },
-      error: (error) => {
-        // Gestion des erreurs
-        console.error(error);
-      },
-      complete: () => {
-      }
-    });
-    
-  }
-
-  onSubmit(isEdit: boolean, name: string, lastName: string, phone: string, email: string, github: string) {
-    if(!isEdit) {
-      this.addVacataire(name, lastName, phone, email, github)
-    } else {
-    
+  onSubmit(name: string, lastName: string, phone: string, email: string, github: string) {
       this.editVacataire(this.form._id, this.form.name, this.form.lastName, this.form.phone, this.form.email, this.form.github)
-    }
   }
 
   deleteVacataire(id: string) {

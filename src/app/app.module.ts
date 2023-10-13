@@ -7,12 +7,14 @@ import { VacataireComponent } from './components/vacataire/vacataire.component';
 import { VacatairesComponent } from './pages/vacataires/vacataires.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     VacataireComponent,
-    VacatairesComponent
+    VacatairesComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -21,6 +23,6 @@ import { FormsModule } from '@angular/forms';
     FormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

@@ -1,3 +1,87 @@
-<h2>Page des vacataires :</h2>
+<div class="buttons">
 
-<app-vacataire></app-vacataire>
+    <a class="btn dropdown dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Filtres</a>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="#">Affecter</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="#">Non affecter</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="#">En attente</a>
+    </div>
+  
+    <div data-bs-toggle="modal" data-bs-target="#createVacataireModal" class="btn">Ajouter un vacataire</div>
+
+    <div class="modal fade" id="createVacataireModal" tabindex="-1" aria-labelledby="createVacataireModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="createVacataireModalLabel">Créer un Vacataire</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form 
+              class="row g-2"
+              name="createVacataireForm"
+              #f="ngForm"
+              (ngSubmit)="f.form.valid && onSubmit(form.name, form.lastName, form.phone, form.email, form.github)"
+              >
+                <div class="form-floating mb-2">
+                  <input type="text" class="form-control" id="name" name="name" [(ngModel)]="form.name" #name="ngModel" placeholder="name@example.com" required>
+                  <label for="name">Prénom :</label>
+      
+                  <div class="form_error" *ngIf="name.errors && f.submitted">
+                    <div *ngIf="name.errors['required']">Le nom est requis !</div>
+                  </div>
+                </div>
+      
+                <div class="form-floating mb-2">
+                  <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="form.lastName" #lastName="ngModel" placeholder="name@example.com" required>
+                  <label for="lastName">Nom de famille :</label>
+      
+                  <div class="form_error" *ngIf="lastName.errors && f.submitted">
+                    <div *ngIf="lastName.errors['required']">Le nom de famille est requis !</div>
+                  </div>
+                </div>
+      
+                <div class="form-floating mb-2">
+                  <input type="text" class="form-control" id="phone" name="phone" [(ngModel)]="form.phone" #phone="ngModel" placeholder="name@example.com" required>
+                  <label for="phone">Numéro de téléphone :</label>
+      
+                  <div class="form_error" *ngIf="phone.errors && f.submitted">
+                    <div *ngIf="phone.errors['required']">Le numéro de téléphone est requis !</div>
+                  </div>
+                </div>
+      
+                <div class="form-floating mb-2">
+                  <input type="email" class="form-control" id="email" name="email" [(ngModel)]="form.email" #email="ngModel" placeholder="name@example.com" required>
+                  <label for="email">Adresse email :</label>
+      
+                  <div class="form_error" *ngIf="email.errors && f.submitted">
+                    <div *ngIf="email.errors['required']">L'adresse email est requise !</div>
+                  </div>
+                </div>
+      
+                <div class="form-floating mb-2">
+                  <input type="text" class="form-control" id="github" name="github" [(ngModel)]="form.github" #github="ngModel" placeholder="name@example.com" required>
+                  <label for="github ">Profil GitHub :</label>
+      
+                  <div class="form_error" *ngIf="github.errors && f.submitted">
+                    <div *ngIf="github.errors['required']">Le profil github est requis !</div>
+                  </div>
+                </div>
+      
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+                  <button type="submit" class="btn btn-primary">Créer le vacataire</button>
+                </div>  
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+  
+  <div class="vacataires">
+    <app-vacataire></app-vacataire>
+  </div>

@@ -1,0 +1,95 @@
+.gradient-div {
+    width: 100%; /* La div prend toute la largeur */
+    height: 5px; /* Hauteur personnalisée */
+    background-image: linear-gradient(to right, violet 14%, navy 14%, navy 28%, darkred 28%, darkred 42%, yellow 42%, yellow 57%, green 57%, green 71%, lightblue 71%, lightblue 85%, red 85%, red);
+    background-size: 40% 100px; /* Ajuste la hauteur des bandes */
+    color: white; /* Couleur du texte à l'intérieur de la div */
+    text-align: center; /* Alignement du texte au centre */
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+  
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  }
+  
+  .navlogo {
+    z-index: 2;
+  }
+  
+  .navbar ul {
+    display: flex;
+    gap: 20px;
+    font-size: 18px;
+    list-style: none;
+  }
+
+  .navbar ul li{
+    list-style: none;
+  }
+  
+  .navbar a {
+    color: #111;
+    position: relative;
+    padding-bottom: 3px;  
+  }
+  
+  .navbar a::before {
+    content: '';
+    position: absolute;
+    background-color: #111;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    transition: all ease-in-out .3s;
+  }
+  
+  .navbar a:hover::before {
+    width: 100%;
+    transition: all ease-in-out .3s;
+  }
+  
+  .responsive-menu {
+    display: none;
+    font-size: 30px;
+    z-index: 2;
+  }
+  
+  @media screen and (max-width: 425px) {
+  
+    .navbar {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      width: 100%;
+      height: 20vh;
+      background-color: #fff;
+      box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+      transform: translateY(80px);
+      transition: all ease-in-out .3s;
+    }
+    .navbar.active {
+      display: block;
+      transition: all ease-in-out .3s;
+    }
+    .navbar ul {
+      display: flex;
+      flex-direction: column;
+      padding-left: 40px;
+      margin-top: 50px;
+    }
+  
+    .responsive-menu {
+      display: block;
+    }
+  } 
+  
+  
