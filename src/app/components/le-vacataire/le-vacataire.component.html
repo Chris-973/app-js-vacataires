@@ -77,56 +77,65 @@
             class="row g-2"
             name="createVacataireForm"
             #f="ngForm"
-            (ngSubmit)="f.form.valid && onSubmit(form.name, form.lastName, form.phone, form.email, form.github)"
+            [formGroup]="editVacataireForm"
+            (ngSubmit)="onSubmit()"
             >
               <div class="form-floating mb-2">
-                <input type="text" class="form-control" id="name" name="name" [(ngModel)]="form.name" #name="ngModel" placeholder="name@example.com" value="test" required>
+                <input type="text" class="form-control" id="name" formControlName="firstName" placeholder="name@example.com">
                 <label for="name">Prénom :</label>
-    
-                <div class="form_error" *ngIf="name.errors && f.submitted">
-                  <div *ngIf="name.errors['required']">Le nom est requis !</div>
+
+                <div class="form_error" *ngIf="editVacataireForm.controls['firstName'].errors && editVacataireForm.controls['firstName'].touched">
+                  <div class="form-text text-danger" *ngIf="editVacataireForm.controls['firstName'].errors?.['required']">Veuillez saisir un prénom</div>
+                  <div class="form-text text-danger" *ngIf="editVacataireForm.controls['firstName'].errors?.['noSpaceAllowed']">Veuillez ne pas saisir d'espaces</div>
                 </div>
               </div>
     
               <div class="form-floating mb-2">
-                <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="form.lastName" #lastName="ngModel" placeholder="name@example.com" required>
+                <input type="text" class="form-control" id="lastName" name="lastName" formControlName="lastName" placeholder="name@example.com">
                 <label for="lastName">Nom de famille :</label>
-    
-                <div class="form_error" *ngIf="lastName.errors && f.submitted">
-                  <div *ngIf="lastName.errors['required']">Le nom de famille est requis !</div>
+
+                <div class="form_error" *ngIf="editVacataireForm.controls['lastName'].errors && editVacataireForm.controls['lastName'].touched">
+                  <div class="form-text text-danger" *ngIf="editVacataireForm.controls['lastName'].errors?.['required']">Veuillez saisir un nom de famille</div>
                 </div>
+    
               </div>
     
               <div class="form-floating mb-2">
-                <input type="text" class="form-control" id="phone" name="phone" [(ngModel)]="form.phone" #phone="ngModel" placeholder="name@example.com" required>
+                <input type="text" class="form-control" id="phone" name="phone" formControlName="phone" placeholder="name@example.com" maxlength="10" minlength="10">
                 <label for="phone">Numéro de téléphone :</label>
-    
-                <div class="form_error" *ngIf="phone.errors && f.submitted">
-                  <div *ngIf="phone.errors['required']">Le numéro de téléphone est requis !</div>
+
+                <div class="form_error" *ngIf="editVacataireForm.controls['phone'].errors && editVacataireForm.controls['phone'].touched">
+                  <div class="form-text text-danger" *ngIf="editVacataireForm.controls['phone'].errors?.['required']">Veuillez saisir un numéro de téléphone</div>
+                  <div class="form-text text-danger" *ngIf="editVacataireForm.controls['phone'].errors?.['pattern']">Seulement des chiffres sont autorisé pour le numéro de téléphone</div>
+                  <div class="form-text text-danger" *ngIf="editVacataireForm.controls['phone'].errors?.['minlength']">Le numéro de téléphone doit être composé de 10 chiffres</div>
                 </div>
+    
               </div>
     
               <div class="form-floating mb-2">
-                <input type="email" class="form-control" id="email" name="email" [(ngModel)]="form.email" #email="ngModel" placeholder="name@example.com" required>
+                <input type="email" class="form-control" id="email" name="email" formControlName="email" placeholder="name@example.com" email="true">
                 <label for="email">Adresse email :</label>
-    
-                <div class="form_error" *ngIf="email.errors && f.submitted">
-                  <div *ngIf="email.errors['required']">L'adresse email est requise !</div>
+
+                <div class="form_error" *ngIf="editVacataireForm.controls['email'].errors && editVacataireForm.controls['email'].touched">
+                  <div class="form-text text-danger" *ngIf="editVacataireForm.controls['email'].errors?.['required']">Veuillez saisir une adresse email</div>
+                  <div class="form-text text-danger" *ngIf="editVacataireForm.controls['email'].errors?.['email']">L'email saisie est incorrecte</div>
                 </div>
+    
               </div>
     
               <div class="form-floating mb-2">
-                <input type="text" class="form-control" id="github" name="github" [(ngModel)]="form.github" #github="ngModel" placeholder="name@example.com" required>
+                <input type="text" class="form-control" id="github" name="github" formControlName="github" placeholder="name@example.com">
                 <label for="github ">Profil GitHub :</label>
-    
-                <div class="form_error" *ngIf="github.errors && f.submitted">
-                  <div *ngIf="github.errors['required']">Le profil github est requis !</div>
+
+                <div class="form_error" *ngIf="editVacataireForm.controls['github'].errors && editVacataireForm.controls['github'].touched">
+                  <div class="form-text text-danger" *ngIf="editVacataireForm.controls['github'].errors?.['required']">Veuillez saisir un profil GitHub</div>
                 </div>
+
               </div>
     
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
-                <button type="submit" class="btn btn-primary">Modifier le vacataire</button>
+                <button type="submit" class="btn btn-primary" [disabled]="!editVacataireForm.valid">Modifier le vacataire</button>
               </div>  
             </form>
           </div>

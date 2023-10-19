@@ -16,7 +16,7 @@ export class DataService {
   }
 
   addVacataire(name: string, lastName: string, phone: string, email: string, github: string): Observable<any> {
-    const url = this.apiUrl + "/newVacataire";
+    const url = this.apiUrl + "/addVacataire";
     return this.http.post(url, {name, lastName, phone, email, github});   
   }
 
