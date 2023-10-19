@@ -7,7 +7,6 @@ import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from
   styleUrls: ['./test.component.css']
 })
 export class TestComponent {
-  name = new FormControl('');
 
   constructor(private fb: FormBuilder) { }
 
