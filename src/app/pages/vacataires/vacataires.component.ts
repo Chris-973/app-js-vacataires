@@ -13,18 +13,10 @@ export class VacatairesComponent {
   createVacataireForm = this.fb.group({
     firstName: ['', [Validators.required, this.noSpaceAllowed]],
     lastName: ['', Validators.required],
-    phone: ['', [Validators.required]],
+    phone: ['', [Validators.required, Validators.pattern('[0-9]+')]],
     email: ['', Validators.required],
     github: ['', [Validators.required]],
   })
-
-  form: any = {
-    name: "",
-    lastName: "",
-    phone: "",
-    email: "", 
-    github: ""
-  }
 
   constructor(private dataService: DataService, private fb: FormBuilder) {}
 
@@ -43,7 +35,6 @@ export class VacatairesComponent {
       github: 'github//Christopher',
     });
   }
-
 
   /**
    * Accède aux contrôles du formulaire.
