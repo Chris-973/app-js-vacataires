@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-test',
@@ -9,15 +9,17 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class TestComponent {
   name = new FormControl('');
 
-  profileForm = new FormGroup({
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    address: new FormGroup({
-      street: new FormControl(''),
-      city: new FormControl(''),
-      state: new FormControl(''),
-      zip: new FormControl('')
-    })
+  constructor(private fb: FormBuilder) { }
+
+  profileForm = this.fb.group({
+    firstName: ['', [Validators.required, this.noSpaceAllowed]],
+    lastName: ['', Validators.required],
+    address: this.fb.group({
+      street: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      zip: ['', Validators.required]
+    }),
   });
 
   updateProfile() {
@@ -31,6 +33,14 @@ export class TestComponent {
         zip: '1 Rue Vincent Van Gogh'
       }
     });
+  }
+
+  noSpaceAllowed(control: AbstractControl) {
+    if(control.value != null && control.value.indexOf(' ') != -1) {
+      return {noSpaceAllowed: true}
+    }
+
+    return null;
   }
 
   onSubmit() {
