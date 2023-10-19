@@ -101,13 +101,17 @@
             <div class="form-floating mb-2">
               <input type="text" class="form-control" id="name"formControlName="firstName" placeholder="name@example.com">
               <label for="name">Prénom :</label>
-              <div class="form-text text-danger" *ngIf="firstName && firstName.invalid && firstName.touched">Veuillez saisir un prénom</div>
+
+              <div class="form_error">
+                <div class="form-text text-danger" *ngIf="f.firstName.errors?.['required']">Veuillez saisir un prénom</div>
+                <div class="form-text text-danger" *ngIf="f.firstName.errors?.['noSpaceAllowed']">Veuillez ne pas saisir d'espaces</div>
+              </div>
             </div>
 
             <div class="form-floating mb-2">
               <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="name@example.com">
               <label for="lastName">Nom de famille :</label>
-            </div>
+            </div>  
 
             <div class="form-floating mb-2">
               <input type="text" class="form-control" id="phone" formControlName="phone" placeholder="name@example.com">
