@@ -2,14 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { VacatairesComponent } from './pages/vacataires/vacataires.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { TestComponent } from './components/test/test.component';
+import { CoursesComponent } from './pages/courses/courses.component';
 
 const routes: Routes = [
   { path : '', component: VacatairesComponent },
   { path: 'vacataires', component:VacatairesComponent },
-  // { path: 'les-cours', component:LesCoursComponent },
+  { path: 'cours', component:CoursesComponent },
   { path: '404', component:NotFoundComponent },
-  { path: 'test', component:TestComponent},
   { path: '**', redirectTo: '/404' },
 ];
 

@@ -4,8 +4,8 @@ import { DataService } from 'src/app/service/vacataires.service';
 
 @Component({
   selector: 'app-vacataire',
-  templateUrl: './le-vacataire.component.html',
-  styleUrls: ['./le-vacataire.component.css']
+  templateUrl: './vacataire.component.html',
+  styleUrls: ['./vacataire.component.css']
 })
 export class VacataireComponent {
   public vacataires: any[] = []
@@ -13,10 +13,10 @@ export class VacataireComponent {
   editVacataireForm = this.fb.group({
     _id: [''],
     firstName: ['', [Validators.required, this.noSpaceAllowed]],
-    lastName: ['', Validators.required],
-    phone: ['', [Validators.required, Validators.pattern('[0-9]+')]],
-    email: ['', Validators.required],
-    github: ['', [Validators.required]],
+    lastName: ['', [Validators.required, this.noSpaceAllowed]],
+    phone: ['', [Validators.required, Validators.pattern('[0-9 ]+'), this.noSpaceAllowed]],
+    email: ['', [Validators.required, this.noSpaceAllowed]],
+    github: ['', [Validators.required, this.noSpaceAllowed]],
   })
 
   constructor(private dataService: DataService, private fb: FormBuilder) {}
