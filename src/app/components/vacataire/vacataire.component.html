@@ -86,7 +86,7 @@
 
                 <div class="form_error" *ngIf="editVacataireForm.controls['firstName'].errors && editVacataireForm.controls['firstName'].touched">
                   <div class="form-text text-danger" *ngIf="editVacataireForm.controls['firstName'].errors?.['required']">Veuillez saisir un prénom</div>
-                  <div class="form-text text-danger" *ngIf="editVacataireForm.controls['firstName'].errors?.['noSpaceAllowed']">Veuillez ne pas saisir d'espaces</div>
+                  <div class="form-text text-danger" *ngIf="editVacataireForm.controls['firstName'].errors?.['noSpaceAllowed']">Veuillez ne pas saisir d'espaces</div>                  
                 </div>
               </div>
     
@@ -96,6 +96,7 @@
 
                 <div class="form_error" *ngIf="editVacataireForm.controls['lastName'].errors && editVacataireForm.controls['lastName'].touched">
                   <div class="form-text text-danger" *ngIf="editVacataireForm.controls['lastName'].errors?.['required']">Veuillez saisir un nom de famille</div>
+                  <div class="form-text text-danger" *ngIf="editVacataireForm.controls['lastName'].errors?.['noSpaceAllowed']">Veuillez ne pas saisir d'espaces</div>
                 </div>
     
               </div>
@@ -106,8 +107,9 @@
 
                 <div class="form_error" *ngIf="editVacataireForm.controls['phone'].errors && editVacataireForm.controls['phone'].touched">
                   <div class="form-text text-danger" *ngIf="editVacataireForm.controls['phone'].errors?.['required']">Veuillez saisir un numéro de téléphone</div>
-                  <div class="form-text text-danger" *ngIf="editVacataireForm.controls['phone'].errors?.['pattern']">Seulement des chiffres sont autorisé pour le numéro de téléphone</div>
+                  <div class="form-text text-danger" *ngIf="editVacataireForm.controls['phone'].errors?.['pattern']">Seulement les chiffres sont autorisé pour le numéro de téléphone</div>
                   <div class="form-text text-danger" *ngIf="editVacataireForm.controls['phone'].errors?.['minlength']">Le numéro de téléphone doit être composé de 10 chiffres</div>
+                  <div class="form-text text-danger" *ngIf="editVacataireForm.controls['phone'].errors?.['noSpaceAllowed']">Veuillez ne pas saisir d'espaces</div>
                 </div>
     
               </div>
@@ -129,6 +131,7 @@
 
                 <div class="form_error" *ngIf="editVacataireForm.controls['github'].errors && editVacataireForm.controls['github'].touched">
                   <div class="form-text text-danger" *ngIf="editVacataireForm.controls['github'].errors?.['required']">Veuillez saisir un profil GitHub</div>
+                  <div class="form-text text-danger" *ngIf="editVacataireForm.controls['github'].errors?.['noSpaceAllowed']">Veuillez ne pas saisir d'espaces</div>
                 </div>
 
               </div>

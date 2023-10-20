@@ -12,10 +12,10 @@ export class VacatairesComponent {
 
   createVacataireForm = this.fb.group({
     firstName: ['', [Validators.required, this.noSpaceAllowed]],
-    lastName: ['', Validators.required],
-    phone: ['', [Validators.required, Validators.pattern('[0-9]+')]],
+    lastName: ['', [Validators.required, this.noSpaceAllowed]],
+    phone: ['', [Validators.required, Validators.pattern('[0-9 ]+'), this.noSpaceAllowed]],
     email: ['', Validators.required],
-    github: ['', [Validators.required]],
+    github: ['', [Validators.required, this.noSpaceAllowed]],
   })
 
   constructor(private dataService: DataService, private fb: FormBuilder) {}

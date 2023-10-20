@@ -9,8 +9,8 @@
   
     <div class="navbar" [ngClass]="{ 'active': isNavbarActive }">
       <ul>
-        <li><a routerLink="/vacataires">Vacataires</a></li>
-        <li><a routerLink="/les-cours">Cours</a></li>
+        <li [routerLinkActive]="'active'"><a routerLink="vacataires">Vacataires</a></li>
+        <li [routerLinkActive]="'active'"><a routerLink="cours">Cours</a></li>
       </ul>
     </div>
   
