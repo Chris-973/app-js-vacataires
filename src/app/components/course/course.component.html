@@ -35,22 +35,17 @@
               <p>Couleur du cours : {{ cours.color }}</p>
               <p>Groupe attribuer : {{ cours.group }}</p>
 
-              <p>
-                {{cours.vacataire.firstName}} <br>
-                {{cours.vacataire.lastName}} <br>
-                {{cours.vacataire.phone}} <br>
-                {{cours.vacataire.email}} <br>
-                {{cours.vacataire.github}}
-              </p>
-              
-              <ng-container *ngIf="cours.vacataire; else noVaca">
-                <!-- Le contenu à afficher si la condition est vraie -->
-                
-              </ng-container>
-      
-              <ng-template #noVaca>
-                <!-- Le contenu à afficher si la condition est fausse -->
-                <p>Aucun vacataire n'est attribuer à ce cours</p>
+              <div *ngIf="cours.vacataire; else elseBlock">
+                <p>
+                  {{cours.vacataire.firstName}} <br>
+                  {{cours.vacataire.lastName}} <br>
+                  {{cours.vacataire.phone}} <br>
+                  {{cours.vacataire.email}} <br>
+                  {{cours.vacataire.github}}
+                </p>
+              </div>
+              <ng-template #elseBlock>
+                <p>Aucun vacataire n'est admis au cours</p>
               </ng-template>
               
             </div>
