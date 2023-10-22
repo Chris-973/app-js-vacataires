@@ -1,1 +1,66 @@
-<h3>Je suis un cours !</h3>
+<div class="courses">
+  <div *ngFor="let cours of cours; let i = index" class="course">
+    <div class="expand" data-bs-toggle="modal" [attr.data-bs-target]="'#coursModal-' + cours._id">
+      <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+    </div>
+
+    <div class="cours-color" [style.background-color]="cours.color"></div>
+
+    <div class="content">
+      
+      <div class="cours-name">
+        <h1>{{ cours.name }}</h1>
+      </div>
+
+      <div class="cours-name_abrev">
+        {{ abbreviateCourseName(cours.name) }}
+      </div>
+
+      <div class="cours-group">
+        {{ cours.group }}
+      </div>
+
+    </div>
+
+    <div class="modal fade" [id]="'coursModal-' + cours._id" tabindex="-1" aria-labelledby="coursModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="coursModalLabel">{{ cours.name }} {{ cours.lastName }}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <!-- Contenu du modal pour ce cours -->
+              <p>Nom du cours : {{ cours.cours }}</p>
+              <p>Couleur du cours : {{ cours.color }}</p>
+              <p>Groupe attribuer : {{ cours.group }}</p>
+
+              <p>
+                {{cours.vacataire.firstName}} <br>
+                {{cours.vacataire.lastName}} <br>
+                {{cours.vacataire.phone}} <br>
+                {{cours.vacataire.email}} <br>
+                {{cours.vacataire.github}}
+              </p>
+              
+              <ng-container *ngIf="cours.vacataire; else noVaca">
+                <!-- Le contenu à afficher si la condition est vraie -->
+                
+              </ng-container>
+      
+              <ng-template #noVaca>
+                <!-- Le contenu à afficher si la condition est fausse -->
+                <p>Aucun vacataire n'est attribuer à ce cours</p>
+              </ng-template>
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" [attr.data-bs-target]="'#affectercoursModal-' + cours._id" data-bs-toggle="modal" data-bs-dismiss="modal">Affecter</button>
+              <!-- <button type="button" class="btn btn-secondary" [attr.data-bs-target]="'#editcoursModal-' + cours._id" data-bs-toggle="modal" data-bs-dismiss="modal" (click)="initializeFormWithId(cours._id)">Modifier</button> -->
+              <button type="button" class="btn btn-danger" (click)="deleteCours(cours._id)">Supprimer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

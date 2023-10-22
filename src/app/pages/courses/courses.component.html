@@ -1,3 +1,78 @@
-<h2>Je suis la page des cours :</h2>
+<div class="buttons">
 
-<app-course></app-course>
+    <a class="btn dropdown dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+      aria-expanded="false">Filtres</a>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="#">Affecter</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="#">Non affecter</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="#">En attente</a>
+    </div>
+  
+    <div data-bs-toggle="modal" data-bs-target="#createCoursModal" class="btn">Créer un Cours</div>
+  
+    <div class="modal fade" id="createCoursModal" tabindex="-1" aria-labelledby="createCoursModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="createCoursModalLabel">Créer un Cours</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form class="row g-2" 
+                name="createCoursForm" 
+                [formGroup]="createCoursForm"
+                (ngSubmit)="onSubmit()"
+            >
+  
+              <div class="form-floating mb-2">
+                <input type="text" class="form-control" id="name" formControlName="name" placeholder="Base de données">
+                <label for="name">Nom du cours :</label>
+
+                <div class="form_error" *ngIf="f.name.errors && f.name.touched">
+                    <div class="form-text text-danger" *ngIf="f.name.errors?.['required']">Veuillez saisir un nom pour le cours</div>
+                  </div>
+                </div>
+  
+              <div class="cours-color" style="position: relative;">
+                <div>
+                    <label for="color" class="form-label">Couleur du module :</label>
+                </div>
+                <div>
+                    <input type="color" class="ms-2" id="color" formControlName="color" />
+                </div>
+
+                <div class="form_error" *ngIf="f.color.errors" style="position: absolute; top: 30px;">
+                    <div class="form-text text-danger" *ngIf="f.color.errors?.['required']">Veuillez choisir une couleur</div>
+                </div>
+              </div>  
+  
+              <div class="form-floating mb-2">
+                <input type="text" class="form-control" id="group" formControlName="group" placeholder="BUT3-1">
+                <label for="group">Groupe du cours :</label>
+
+                <div class="form_error" *ngIf="f.group.errors && f.group.touched">
+                    <div class="form-text text-danger" *ngIf="f.group.errors?.['required']">Veuillez saisir un nom pour le groupe</div>
+                    <div class="form-text text-danger" *ngIf="f.group.errors?.['noSpaceAllowed']">Veuillez ne pas saisir d'espaces</div>
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-secondary" (click)="updateCours()">Update cours</button>
+                <button type="submit" class="btn btn-primary" [disabled]="!createCoursForm.valid">Créer le Cours</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="cours">
+    <app-course></app-course>
+  </div>
