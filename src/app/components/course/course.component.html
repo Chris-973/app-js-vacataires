@@ -7,7 +7,7 @@
     <div class="cours-color" [style.background-color]="cours.color"></div>
 
     <div class="content">
-      
+
       <div class="cours-name">
         <h1>{{ cours.name }}</h1>
       </div>
@@ -22,40 +22,103 @@
 
     </div>
 
-    <div class="modal fade" [id]="'coursModal-' + cours._id" tabindex="-1" aria-labelledby="coursModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="coursModalLabel">{{ cours.name }} {{ cours.lastName }}</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <!-- Contenu du modal pour ce cours -->
-              <p>Nom du cours : {{ cours.cours }}</p>
-              <p>Couleur du cours : {{ cours.color }}</p>
-              <p>Groupe attribuer : {{ cours.group }}</p>
+    <div class="modal fade" [id]="'coursModal-' + cours._id" tabindex="-1" aria-labelledby="coursModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="coursModalLabel">{{ cours.name }} {{ cours.lastName }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <!-- Contenu du modal pour ce cours -->
+            <p>Nom du cours : {{ cours.name }}</p>
+            <p>Couleur du cours : {{ cours.color }}</p>
+            <p>Groupe attribuer : {{ cours.group }}</p>
 
-              <div *ngIf="cours.vacataire; else elseBlock">
-                <p>
-                  {{cours.vacataire.firstName}} <br>
-                  {{cours.vacataire.lastName}} <br>
-                  {{cours.vacataire.phone}} <br>
-                  {{cours.vacataire.email}} <br>
-                  {{cours.vacataire.github}}
-                </p>
-              </div>
-              <ng-template #elseBlock>
-                <p>Aucun vacataire n'est admis au cours</p>
-              </ng-template>
-              
+            <div *ngIf="cours.vacataire; else elseBlock">
+              <p>
+                {{cours.vacataire.firstName}} <br>
+                {{cours.vacataire.lastName}} <br>
+                {{cours.vacataire.phone}} <br>
+                {{cours.vacataire.email}} <br>
+                {{cours.vacataire.github}} <br>
+                {{cours.vacataire.skills}}
+              </p>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" [attr.data-bs-target]="'#affectercoursModal-' + cours._id" data-bs-toggle="modal" data-bs-dismiss="modal">Affecter</button>
-              <!-- <button type="button" class="btn btn-secondary" [attr.data-bs-target]="'#editcoursModal-' + cours._id" data-bs-toggle="modal" data-bs-dismiss="modal" (click)="initializeFormWithId(cours._id)">Modifier</button> -->
-              <button type="button" class="btn btn-danger" (click)="deleteCours(cours._id)">Supprimer</button>
-            </div>
+            <ng-template #elseBlock>
+              <p>Aucun vacataire n'est admis au cours</p>
+            </ng-template>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" [attr.data-bs-target]="'#editCoursModal-' + cours._id" data-bs-toggle="modal" data-bs-dismiss="modal" (click)="initializeFormWithId(cours._id)">Modifier</button>
+            <button type="button" class="btn btn-danger" (click)="deleteCours(cours._id)">Supprimer</button>
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="modal fade" [id]="'editCoursModal-' + cours._id" tabindex="-1" aria-labelledby="editCoursModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editCourssModalLabel">Modifier le Vacataire : {{cours.name}}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+
+            <form 
+            class="row g-2"
+            name="createVacataireForm"
+            #f="ngForm"
+            [formGroup]="editCoursForm"
+            (ngSubmit)="onSubmit()"
+
+            >
+
+            <div class="form-floating mb-2">
+              <input type="text" class="form-control" id="name" formControlName="name" placeholder="Base de données">
+              <label for="name">Nom du cours :</label>
+
+              <div class="form_error" *ngIf="editCoursForm.controls['name'].errors && editCoursForm.controls['name'].touched">
+                <div class="form-text text-danger" *ngIf="editCoursForm.controls['name'].errors?.['required']">Veuillez saisir un nom de famille</div>
+              </div>
+            </div>
+  
+            <div class="form-floating mb-2">
+              <div class="f-cours-color" style="position: relative;">
+                <div>
+                    <label for="color" class="form-label">Couleur du module :</label>
+                </div>
+                <div>
+                    <input type="color" class="ms-2" id="color" formControlName="color" />
+                </div>
+              </div> 
+            </div>
+
+            <div class="form-floating mb-2">
+              <input type="text" class="form-control" id="group" formControlName="group" placeholder="BUT3-1">
+              <label for="group">Groupe du cours :</label>
+
+              <div class="form_error" *ngIf="editCoursForm.controls['group'].errors && editCoursForm.controls['group'].touched">
+                <div class="form-text text-danger" *ngIf="editCoursForm.controls['group'].errors?.['required']">Veuillez saisir un nom de famille</div>
+                <div class="form-text text-danger" *ngIf="editCoursForm.controls['group'].errors?.['noSpaceAllowed']">Veuillez ne pas saisir d'espaces</div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+              <button type="submit" class="btn btn-primary" [disabled]="!editCoursForm.valid">Modifier le vacataire</button>
+            </div>  
+            
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
+
 </div>
+

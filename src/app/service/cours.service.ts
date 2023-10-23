@@ -25,4 +25,14 @@ export class CoursService {
     const url = this.apiUrl + '/deleteCours/' + id;
     return this.http.delete(url);   
   }
+
+  editCours(id: String, name: string, color: string, group: string): Observable<any> {
+    const url = this.apiUrl + '/editCours/' + id;
+    const body = {
+      name: name,
+      color: color,
+      group: group,
+    }
+    return this.http.put(url, body);   
+  }
 }
