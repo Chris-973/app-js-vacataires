@@ -7,8 +7,8 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class VacatairesService {
 
-  private apiUrl  = 'http://localhost:3000/vacataires';
-  // private apiUrl  = 'https://ap-js-vacataires-api.vercel.app/vacataires';
+  // private apiUrl  = 'http://localhost:3000/vacataires';
+  private apiUrl  = 'https://ap-js-vacataires-api.vercel.app/vacataires';
 
   constructor(private http: HttpClient) { }
 
