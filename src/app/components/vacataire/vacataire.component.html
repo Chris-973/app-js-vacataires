@@ -8,7 +8,7 @@
     <div class="profile-pic"><img src='../../../assets/img/profile-pic.png' alt="profile-pic"></div>
 
     <div class="content">
-      <div class="name">{{ vacataire.name }} {{ vacataire.lastName }}</div>
+      <div class="name">{{ vacataire.firstName }} {{ vacataire.lastName }}</div>
       <div class="index">Vacataire n°{{i+1}}</div>
       <div class="email">{{ vacataire.email }}</div>
       <div class="skills">Skills : {{ vacataire.skills }}</div>
@@ -21,7 +21,7 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="vacataireModalLabel">{{ vacataire.name }} {{ vacataire.lastName }}</h5>
+            <h5 class="modal-title" id="vacataireModalLabel">{{ vacataire.firstName }} {{ vacataire.lastName }}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -34,7 +34,9 @@
             <!-- Ajoutez d'autres informations du vacataire si nécessaire -->
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" [attr.data-bs-target]="'#affecterVacataireModal-' + vacataire._id" data-bs-toggle="modal" data-bs-dismiss="modal">Affecter</button>
+            <!-- <button type="button" class="btn btn-primary" [attr.data-bs-target]="'#affecterVacataireModal-' + vacataire._id" data-bs-toggle="modal" data-bs-dismiss="modal">Affecter</button> -->
+            <button type="button" class="btn btn-primary" (click)="affecteVacataire('6536df6f1db7cacf796b7060', i)">Affecter</button>
+            <!-- <button type="button" class="btn btn-primary" (click)="click()">click</button> -->
             <button type="button" class="btn btn-secondary" [attr.data-bs-target]="'#editVacataireModal-' + vacataire._id" data-bs-toggle="modal" data-bs-dismiss="modal" (click)="initializeFormWithId(vacataire._id)">Modifier</button>
             <button type="button" class="btn btn-danger" (click)="deleteVacataire(vacataire._id)">Supprimer</button>
           </div>
@@ -69,7 +71,7 @@
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="editVacataireModalLabel">Modifier le Vacataire : {{vacataire.name}}</h5>
+            <h5 class="modal-title" id="editVacataireModalLabel">Modifier le Vacataire : {{vacataire.firstName}}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -81,8 +83,8 @@
             (ngSubmit)="onSubmit()"
             >
               <div class="form-floating mb-2">
-                <input type="text" class="form-control" id="name" formControlName="firstName" placeholder="name@example.com">
-                <label for="name">Prénom :</label>
+                <input type="text" class="form-control" id="firstName" name="firstName" formControlName="firstName" placeholder="name@example.com">
+                <label for="firstName">Prénom :</label>
 
                 <div class="form_error" *ngIf="editVacataireForm.controls['firstName'].errors && editVacataireForm.controls['firstName'].touched">
                   <div class="form-text text-danger" *ngIf="editVacataireForm.controls['firstName'].errors?.['required']">Veuillez saisir un prénom</div>

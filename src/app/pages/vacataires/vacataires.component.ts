@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
-import { DataService } from 'src/app/service/vacataires.service';
+import { VacatairesService } from 'src/app/service/vacataires.service';
 
 @Component({
   selector: 'app-vacataires',
@@ -18,10 +18,10 @@ export class VacatairesComponent {
     github: ['', [Validators.required, this.noSpaceAllowed]],
   })
 
-  constructor(private dataService: DataService, private fb: FormBuilder) {}
+  constructor(private vacatairesService: VacatairesService, private fb: FormBuilder) {}
 
   ngOnInit() {
-    this.dataService.getVacataire().subscribe((data: any) => {
+    this.vacatairesService.getVacataire().subscribe((data: any) => {
       this.vacataires = data;               
     });
   }
@@ -52,6 +52,11 @@ export class VacatairesComponent {
   getEmail(): string { return this.createVacataireForm.value.email || '' }
   getGithub(): string { return this.createVacataireForm.value.github || '' }
 
+  click() {
+    console.log(this.getFirstName());
+    
+  }
+
   /**
    * Validators personnalisé qui vérifie si la valeur du contrôle a des espaces
    * pour garantir que le champs du formulaire n'accepte pas de valeurs avec espaces.
@@ -71,7 +76,7 @@ export class VacatairesComponent {
    * Elle appel service de données des vacataires pour ajouter un nouveau vacataire avec les valeurs du formulaire
    */
   onSubmit() {
-    this.dataService.addVacataire(this.getFirstName(), this.getLastName(), this.getPhone(), this.getEmail(), this.getGithub()).subscribe({
+    this.vacatairesService.addVacataire(this.getFirstName(), this.getLastName(), this.getPhone(), this.getEmail(), this.getGithub()).subscribe({
         next: (response) => {
           window.location.reload()
         },

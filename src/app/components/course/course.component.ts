@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { CoursService } from 'src/app/service/cours.service';
+import { VacatairesService } from 'src/app/service/vacataires.service';
 
 @Component({
   selector: 'app-course',
@@ -9,6 +10,7 @@ import { CoursService } from 'src/app/service/cours.service';
 })
 export class CourseComponent {
   public cours: any[] = [];
+  public vacataires: any[] = [];
 
   editCoursForm = this.fb.group({
     _id: [''],
@@ -17,12 +19,16 @@ export class CourseComponent {
     group: ['', [Validators.required, this.noSpaceAllowed]],
   })
 
-  constructor(private coursService: CoursService, private fb: FormBuilder) {}
+  constructor(private coursService: CoursService, private vacatairesService: VacatairesService, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.coursService.getCours().subscribe((data: any) => {
       this.cours = data;                     
-    });        
+    }); 
+    
+    this.vacatairesService.getVacataire().subscribe((data: any) => {
+      this.vacataires = data;                     
+    }); 
 
   }
 

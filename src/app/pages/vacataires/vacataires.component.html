@@ -28,13 +28,13 @@
           >
 
             <div class="form-floating mb-2">
-              <input type="text" class="form-control" id="name" formControlName="firstName" placeholder="name@example.com">
-              <label for="name">Prénom :</label>
+              <input type="text" class="form-control" id="firstName" formControlName="firstName" placeholder="name@example.com">
+              <label for="firstName">Prénom :</label>
 
               <div class="form_error" *ngIf="f.firstName.errors && f.firstName.touched">
                 <div class="form-text text-danger" *ngIf="f.firstName.errors?.['required']">Veuillez saisir un prénom</div>
                 <div class="form-text text-danger" *ngIf="f.firstName.errors?.['noSpaceAllowed']">Veuillez ne pas saisir d'espaces</div>
-              </div>
+              </div>  
             </div>
 
             <div class="form-floating mb-2">
@@ -84,6 +84,7 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
               <button type="submit" class="btn btn-primary" [disabled]="!createVacataireForm.valid">Créer le vacataire</button>
+              <button type="button" class="btn btn-secondary m-2" (click)="click()">click</button>
               <button type="button" class="btn btn-secondary m-2" (click)="updateProfile()">Update Name</button>
             </div>
           </form>

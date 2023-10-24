@@ -5,10 +5,10 @@ import { Observable } from 'rxjs/internal/Observable';
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
+export class VacatairesService {
 
-  // private apiUrl  = 'http://localhost:3000/vacataires';
-  private apiUrl  = 'https://ap-js-vacataires-api.vercel.app/vacataires';
+  private apiUrl  = 'http://localhost:3000/vacataires';
+  // private apiUrl  = 'https://ap-js-vacataires-api.vercel.app/vacataires';
 
   constructor(private http: HttpClient) { }
 
@@ -16,9 +16,9 @@ export class DataService {
     return this.http.get(this.apiUrl)    
   }
 
-  addVacataire(name: string, lastName: string, phone: string, email: string, github: string): Observable<any> {
+  addVacataire(firstName: string, lastName: string, phone: string, email: string, github: string): Observable<any> {
     const url = this.apiUrl + "/addVacataire";
-    return this.http.post(url, {name, lastName, phone, email, github});   
+    return this.http.post(url, {firstName, lastName, phone, email, github});   
   }
 
   deleteVacataire(id: string): Observable<any> {
@@ -26,14 +26,27 @@ export class DataService {
     return this.http.delete(url);   
   }
 
-  editVacataire(id: String, name: string, lastName: string, phone: string, email: string, github: string): Observable<any> {
+  editVacataire(id: String, firstName: string, lastName: string, phone: string, email: string, github: string): Observable<any> {
     const url = this.apiUrl + '/editVacataire/' + id;
     const body = {
-      name: name,
+      firstName: firstName,
       lastName: lastName,
       phone: phone,
       email: email,
       github: github
+    }
+    return this.http.put(url, body);   
+  }
+
+  affecteVacataire(idCours: String, firstName: string, lastName: string, phone: string, email: string, github: string) {
+    const url = this.apiUrl + '/affecteVacataire/' + idCours;
+    const body = {
+      // _id: idVacataire,
+      'vacataire[firstName]': firstName,
+      'vacataire[lastName]': lastName,
+      'vacataire[phone]': phone,
+      'vacataire[email]': email,
+      'vacataire[github]': github
     }
     return this.http.put(url, body);   
   }

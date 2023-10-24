@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
-import { DataService } from 'src/app/service/vacataires.service';
+import { CoursService } from 'src/app/service/cours.service';
+import { VacatairesService } from 'src/app/service/vacataires.service';
 
 @Component({
   selector: 'app-vacataire',
@@ -9,6 +10,7 @@ import { DataService } from 'src/app/service/vacataires.service';
 })
 export class VacataireComponent {
   public vacataires: any[] = []
+  public cours: any[] = []
 
   editVacataireForm = this.fb.group({
     _id: [''],
@@ -19,12 +21,21 @@ export class VacataireComponent {
     github: ['', [Validators.required, this.noSpaceAllowed]],
   })
 
-  constructor(private dataService: DataService, private fb: FormBuilder) {}
+  constructor(private vacatairesService: VacatairesService, private coursService: CoursService, private fb: FormBuilder) {}
 
   ngOnInit() {
-    this.dataService.getVacataire().subscribe((data: any) => {
+    this.vacatairesService.getVacataire().subscribe((data: any) => {
       this.vacataires = data;                     
-    });        
+    });  
+    
+    this.coursService.getCours().subscribe((data: any) => {
+      this.cours = data;                     
+    });  
+  }
+
+  click() {
+    console.log(this.vacataires);
+    
   }
 
   /**
@@ -50,7 +61,7 @@ export class VacataireComponent {
     if (vacataire) {
       this.editVacataireForm.patchValue({
         _id: vacataire._id,
-        firstName: vacataire.name,
+        firstName: vacataire.firstName,
         lastName: vacataire.lastName,
         phone: vacataire.phone,
         email: vacataire.email,
@@ -94,7 +105,7 @@ export class VacataireComponent {
     const userConfirmed = window.confirm("Êtes-vous sûr de vouloir modifier les informations de ce vacataire ?");
     if (userConfirmed) {
       // this.editVacataire(this.form._id, this.form.name, this.form.lastName, this.form.phone, this.form.email, this.form.github)
-      this.dataService.editVacataire(this.getId(), this.getFirstName(), this.getLastName(), this.getPhone(), this.getEmail(), this.getGithub()).subscribe({
+      this.vacatairesService.editVacataire(this.getId(), this.getFirstName(), this.getLastName(), this.getPhone(), this.getEmail(), this.getGithub()).subscribe({
         next: (response) => {
           // Traitement du succès
           console.log(response);
@@ -113,7 +124,7 @@ export class VacataireComponent {
   deleteVacataire(id: string) {
     const userConfirmed = window.confirm("Êtes-vous sûr de vouloir supprimer ce vacataire ?");
     if (userConfirmed) {
-      this.dataService.deleteVacataire(id).subscribe({
+      this.vacatairesService.deleteVacataire(id).subscribe({
         next: (response) => {
           // Traitement du succès
           console.log(response);
@@ -125,6 +136,46 @@ export class VacataireComponent {
         }
       });
     }   
+  }
+
+  affecteVacataire(idCours: String, indexVacataire: number) {
+    // console.log(`
+    //   Voulez vous affecter au cours : ${idCours} ce vacataire : \n
+    //   { ${this.vacataires[indexVacataire]._id} }
+    // `);
+
+
+    // this.vacatairesService.affecteVacataire(idCours, this.vacataires[indexVacataire].firstName, this.vacataires[indexVacataire].lastName, this.vacataires[indexVacataire].phone, this.vacataires[indexVacataire].email, this.vacataires[indexVacataire].github).subscribe({
+    //   next: (response) => {
+    //     // Traitement du succès
+    //     console.log(response);
+    //     // window.location.reload();
+    //   },
+    //   error: (error) => {
+    //     // Gestion des erreurs
+    //     console.error(error);
+    //   }
+    // });
+
+    const userConfirmed = window.confirm("Êtes-vous sûr de vouloir affecter ce vacataire au cours ?");
+    if (userConfirmed) {
+      // this.editVacataire(this.form._id, this.form.name, this.form.lastName, this.form.phone, this.form.email, this.form.github)
+      this.vacatairesService.affecteVacataire(idCours, 'chris', 'marie-angelique', '0648618251', 'chris@gmail.com', 'github//chris973').subscribe({
+        next: (response) => {
+          // Traitement du succès
+          console.log(response);
+        },
+        error: (error) => {
+          // Gestion des erreurs
+          console.error(error);
+        },
+        complete: () => {
+          window.location.reload()
+        }
+      });    
+    }   
+    
+    
   }
   
 }
