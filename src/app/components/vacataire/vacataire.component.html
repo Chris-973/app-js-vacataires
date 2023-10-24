@@ -34,9 +34,7 @@
             <!-- Ajoutez d'autres informations du vacataire si nécessaire -->
           </div>
           <div class="modal-footer">
-            <!-- <button type="button" class="btn btn-primary" [attr.data-bs-target]="'#affecterVacataireModal-' + vacataire._id" data-bs-toggle="modal" data-bs-dismiss="modal">Affecter</button> -->
-            <button type="button" class="btn btn-primary" (click)="affecteVacataire('6536df6f1db7cacf796b7060', i)">Affecter</button>
-            <!-- <button type="button" class="btn btn-primary" (click)="click()">click</button> -->
+            <button type="button" class="btn btn-primary" [attr.data-bs-target]="'#affecterVacataireModal-' + vacataire._id" data-bs-toggle="modal" data-bs-dismiss="modal" [disabled]="vacataire.status == 'admis'">Affecter</button>
             <button type="button" class="btn btn-secondary" [attr.data-bs-target]="'#editVacataireModal-' + vacataire._id" data-bs-toggle="modal" data-bs-dismiss="modal" (click)="initializeFormWithId(vacataire._id)">Modifier</button>
             <button type="button" class="btn btn-danger" (click)="deleteVacataire(vacataire._id)">Supprimer</button>
           </div>
@@ -48,20 +46,32 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="affecterVacataireModalLabel2">Affecter {{ vacataire.name }} {{ vacataire.lastName }} à un cours</h5>
+            <h5 class="modal-title" id="affecterVacataireModalLabel2">Affecter {{ vacataire.firstName }} {{ vacataire.lastName }} à un cours</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form>
+            <form
+              name="affecteVacataireForm"
+              #f="ngForm"
+              [formGroup]="affecteVacataireForm"
+              (submit)="testAffecterVacataire(affecteVacataireForm.value.name || '', vacataire._id)"
+            >
               <div class="mb-3">
-                <label for="recipient-name" class="col-form-label">Nom du cours :</label>
-                <input type="text" class="form-control" id="recipient-name">
+                <div class="form-label">Sélectionner le cours :</div>
+                <select class="form-select form-select-scrollable" aria-label="Default select example" name="name" formControlName="name">
+                  <option *ngFor="let cours of cours; let i = index" [value]='cours._id' [disabled]="cours.vacataire">{{ cours.name }}</option>
+                </select>
+
+                <div class="form_error" *ngIf="">
+                  <p>Un vacataire est déjà affecter</p>
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+                <button type="submit" class="btn btn-primary">Valider</button>
               </div>
             </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
-            <button type="button" class="btn btn-primary">Valider</button>
           </div>
         </div>
       </div>

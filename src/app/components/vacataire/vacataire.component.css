@@ -52,6 +52,12 @@
     cursor: pointer;
   }
   
+  select option:disabled {
+    background-color: #f1f1f1;
+    text-decoration: line-through; /* Applique le texte barré */
+    color: #999; /* Modifie la couleur du texte */
+  }
+  
   @media screen and (max-width: 768px) {
     .vacataires {
       grid-template-columns: repeat(2, 1fr);

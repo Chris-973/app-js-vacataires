@@ -38,16 +38,18 @@ export class VacatairesService {
     return this.http.put(url, body);   
   }
 
-  affecteVacataire(idCours: String, firstName: string, lastName: string, phone: string, email: string, github: string) {
-    const url = this.apiUrl + '/affecteVacataire/' + idCours;
+  affecteVacataire(idCours: String, idVacataire: String, firstName: string, lastName: string, phone: string, email: string, github: string) {
+    // const url = this.apiUrl + '/affecteVacataire/' + idCours + '';
+    const url = `${this.apiUrl}/affecteVacataire/${idCours}/${idVacataire}`
     const body = {
-      // _id: idVacataire,
-      'vacataire[firstName]': firstName,
-      'vacataire[lastName]': lastName,
-      'vacataire[phone]': phone,
-      'vacataire[email]': email,
-      'vacataire[github]': github
+      _id: idVacataire,
+      firstName: firstName,
+      lastName: lastName,
+      phone: phone,
+      email: email,
+      github: github
     }
+    
     return this.http.put(url, body);   
   }
 }

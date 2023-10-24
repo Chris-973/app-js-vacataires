@@ -21,6 +21,10 @@ export class VacataireComponent {
     github: ['', [Validators.required, this.noSpaceAllowed]],
   })
 
+  affecteVacataireForm = this.fb.group({
+    name: ['']
+  })
+
   constructor(private vacatairesService: VacatairesService, private coursService: CoursService, private fb: FormBuilder) {}
 
   ngOnInit() {
@@ -33,10 +37,6 @@ export class VacataireComponent {
     });  
   }
 
-  click() {
-    console.log(this.vacataires);
-    
-  }
 
   /**
    * permet de déterminer le style de la div status selon le status du vacataire
@@ -87,6 +87,23 @@ export class VacataireComponent {
   getEmail(): string { return this.editVacataireForm.value.email || '' }
   getGithub(): string { return this.editVacataireForm.value.github || '' }
 
+  getVacataireId(index: number): string { return this.vacataires[index]._id }
+  getVacataireFirstName(index: number): string { return this.vacataires[index].firstName }
+  getVacataireLastName(index: number): string { return this.vacataires[index].lastName }
+  getVacatairePhone(index: number): string { return this.vacataires[index].phone }
+  getVacataireEmail(index: number): string { return this.vacataires[index].email }
+  getVacataireGithub(index: number): string { return this.vacataires[index].github }
+
+  getCoursId(index: number): string { return this.cours[index]._id }
+  getCoursName(index: number): string { return this.cours[index].name }
+  getCoursColor(index: number): string { return this.cours[index].color }
+  getCoursGroup(index: number): string { return this.cours[index].group }
+
+  click(index: number) {
+    console.log(this.getCoursId(index));
+    
+  }
+
   /**
    * Validators personnalisé qui vérifie si la valeur du contrôle a des espaces
    * pour garantir que le champs du formulaire n'accepte pas de valeurs avec espaces.
@@ -104,21 +121,29 @@ export class VacataireComponent {
   onSubmit() {
     const userConfirmed = window.confirm("Êtes-vous sûr de vouloir modifier les informations de ce vacataire ?");
     if (userConfirmed) {
-      // this.editVacataire(this.form._id, this.form.name, this.form.lastName, this.form.phone, this.form.email, this.form.github)
-      this.vacatairesService.editVacataire(this.getId(), this.getFirstName(), this.getLastName(), this.getPhone(), this.getEmail(), this.getGithub()).subscribe({
-        next: (response) => {
-          // Traitement du succès
-          console.log(response);
-        },
-        error: (error) => {
-          // Gestion des erreurs
-          console.error(error);
-        },
-        complete: () => {
-          window.location.reload()
-        }
-      });    
-    }   
+      // console.log(this.getVacataireEmail);
+      // console.log(this.getEmail);
+      
+      
+      this.vacatairesService.editVacataire(this.getId(),
+        this.getFirstName(), 
+        this.getLastName(), 
+        this.getPhone(), 
+        this.getEmail(), 
+        this.getGithub()).subscribe({
+          next: (response) => {
+            // Traitement du succès
+            console.log(response);
+          },
+          error: (error) => {
+            // Gestion des erreurs
+            console.error(error);
+          },
+          complete: () => {
+            window.location.reload()
+          }
+        });
+    }
   }
 
   deleteVacataire(id: string) {
@@ -138,43 +163,72 @@ export class VacataireComponent {
     }   
   }
 
-  affecteVacataire(idCours: String, indexVacataire: number) {
-    // console.log(`
-    //   Voulez vous affecter au cours : ${idCours} ce vacataire : \n
-    //   { ${this.vacataires[indexVacataire]._id} }
-    // `);
-
-
-    // this.vacatairesService.affecteVacataire(idCours, this.vacataires[indexVacataire].firstName, this.vacataires[indexVacataire].lastName, this.vacataires[indexVacataire].phone, this.vacataires[indexVacataire].email, this.vacataires[indexVacataire].github).subscribe({
-    //   next: (response) => {
-    //     // Traitement du succès
-    //     console.log(response);
-    //     // window.location.reload();
-    //   },
-    //   error: (error) => {
-    //     // Gestion des erreurs
-    //     console.error(error);
-    //   }
-    // });
+  affecteVacataire(idCours: String, idVacataire: String) {
 
     const userConfirmed = window.confirm("Êtes-vous sûr de vouloir affecter ce vacataire au cours ?");
     if (userConfirmed) {
-      // this.editVacataire(this.form._id, this.form.name, this.form.lastName, this.form.phone, this.form.email, this.form.github)
-      this.vacatairesService.affecteVacataire(idCours, 'chris', 'marie-angelique', '0648618251', 'chris@gmail.com', 'github//chris973').subscribe({
-        next: (response) => {
-          // Traitement du succès
-          console.log(response);
-        },
-        error: (error) => {
-          // Gestion des erreurs
-          console.error(error);
-        },
-        complete: () => {
-          window.location.reload()
-        }
-      });    
+      this.vacatairesService.affecteVacataire(idCours, idVacataire, 'chris', 'marie-angelique', '0648618251', 'chris@gmail.com', 'github//chris973').subscribe({
+          next: (response) => {
+            // Traitement du succès
+            console.log(response);
+          },
+          error: (error) => {
+            // Gestion des erreurs
+            console.error(error);
+          },
+          complete: () => {
+            window.location.reload()
+          }
+        });  
+
+      console.log('Vacataire affecter');
+      
+      /*
+        // this.editVacataire(this.form._id, this.form.name, this.form.lastName, this.form.phone, this.form.email, this.form.github)
+        this.vacatairesService.affecteVacataire(idCours, 'chris', 'marie-angelique', '0648618251', 'chris@gmail.com', 'github//chris973').subscribe({
+          next: (response) => {
+            // Traitement du succès
+            console.log(response);
+          },
+          error: (error) => {
+            // Gestion des erreurs
+            console.error(error);
+          },
+          complete: () => {
+            window.location.reload()
+          }
+        });    
+      */
     }   
     
+    
+  }
+
+  testAffecterVacataire(idCours: String, idVacataire: String) {
+
+    const cours = this.cours.find(cours => cours._id === idCours);
+    const vacataire = this.vacataires.find(vacataire => vacataire._id === idVacataire);
+
+    const userConfirmed = window.confirm("Êtes-vous sûr de vouloir affecter ce vacataire au cours ?");
+    if (userConfirmed) {
+
+      if(!cours.vacataire) {
+        this.vacatairesService.affecteVacataire(idCours, idVacataire, vacataire.firstName, vacataire.lastName, vacataire.phone, vacataire.email, vacataire.github).subscribe({
+          next: (response) => {
+            // Traitement du succès
+            console.log(response);
+          },
+          error: (error) => {
+            // Gestion des erreurs
+            console.error(error);
+          },
+          complete: () => {
+            window.location.reload()
+          }
+        });
+      }
+      
+    }   
     
   }
   
