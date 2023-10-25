@@ -10,9 +10,10 @@ import { VacatairesService } from 'src/app/service/vacataires.service';
 })
 export class VacataireComponent {
   public vacataires: any[] = []
+  public vacatairesTmp: any[] = []
   public cours: any[] = []
 
-  editVacataireForm = this.fb.group({
+  vacataireForm = this.fb.group({
     _id: [''],
     firstName: ['', [Validators.required, this.noSpaceAllowed]],
     lastName: ['', [Validators.required, this.noSpaceAllowed]],
@@ -25,16 +26,20 @@ export class VacataireComponent {
     name: ['']
   })
 
-  constructor(private vacatairesService: VacatairesService, private coursService: CoursService, private fb: FormBuilder) {}
+  constructor(private vacatairesService: VacatairesService, private coursService: CoursService, private fb: FormBuilder) {
+    this.vacatairesTmp = this.vacataires.slice();
+  }
 
   ngOnInit() {
     this.vacatairesService.getVacataire().subscribe((data: any) => {
       this.vacataires = data;                     
+      this.vacatairesTmp = data;                     
     });  
     
     this.coursService.getCours().subscribe((data: any) => {
       this.cours = data;                     
     });  
+    
   }
 
 
@@ -62,7 +67,7 @@ export class VacataireComponent {
     const vacataire = this.vacataires.find(vacataire => vacataire._id === id);
     
     if (vacataire) {
-      this.editVacataireForm.patchValue({
+      this.vacataireForm.patchValue({
         _id: vacataire._id,
         firstName: vacataire.firstName,
         lastName: vacataire.lastName,
@@ -77,35 +82,31 @@ export class VacataireComponent {
    * Accède aux contrôles du formulaire.
    * Notez que cette méthode retourne un objet, où chaque clé est le nom d'un contrôle et la valeur est le contrôle lui-même.
    */
-  get f() { return this.editVacataireForm.controls }
+  get f() { return this.vacataireForm.controls }
 
   /**
    * Permet de retourner les valeurs des champs du formulaire
    * @returns
   */
-  getId(): string { return this.editVacataireForm.value._id || '' }
-  getFirstName(): string { return this.editVacataireForm.value.firstName || '' }
-  getLastName(): string { return this.editVacataireForm.value.lastName || '' }
-  getPhone(): string { return this.editVacataireForm.value.phone || '' }
-  getEmail(): string { return this.editVacataireForm.value.email || '' }
-  getGithub(): string { return this.editVacataireForm.value.github || '' }
+  getId(): string { return this.vacataireForm.value._id || '' }
+  getFirstName(): string { return this.vacataireForm.value.firstName || '' }
+  getLastName(): string { return this.vacataireForm.value.lastName || '' }
+  getPhone(): string { return this.vacataireForm.value.phone || '' }
+  getEmail(): string { return this.vacataireForm.value.email || '' }
+  getGithub(): string { return this.vacataireForm.value.github || '' }
 
-  getVacataireId(index: number): string { return this.vacataires[index]._id }
-  getVacataireFirstName(index: number): string { return this.vacataires[index].firstName }
-  getVacataireLastName(index: number): string { return this.vacataires[index].lastName }
-  getVacatairePhone(index: number): string { return this.vacataires[index].phone }
-  getVacataireEmail(index: number): string { return this.vacataires[index].email }
-  getVacataireGithub(index: number): string { return this.vacataires[index].github }
+  // getVacataireId(index: number): string { return this.vacataires[index]._id }
+  // getVacataireFirstName(index: number): string { return this.vacataires[index].firstName }
+  // getVacataireLastName(index: number): string { return this.vacataires[index].lastName }
+  // getVacatairePhone(index: number): string { return this.vacataires[index].phone }
+  // getVacataireEmail(index: number): string { return this.vacataires[index].email }
+  // getVacataireGithub(index: number): string { return this.vacataires[index].github }
 
-  getCoursId(index: number): string { return this.cours[index]._id }
-  getCoursName(index: number): string { return this.cours[index].name }
-  getCoursColor(index: number): string { return this.cours[index].color }
-  getCoursGroup(index: number): string { return this.cours[index].group }
+  // getCoursId(index: number): string { return this.cours[index]._id }
+  // getCoursName(index: number): string { return this.cours[index].name }
+  // getCoursColor(index: number): string { return this.cours[index].color }
+  // getCoursGroup(index: number): string { return this.cours[index].group }
 
-  click(index: number) {
-    console.log(this.getCoursId(index));
-    
-  }
 
   /**
    * Validators personnalisé qui vérifie si la valeur du contrôle a des espaces
@@ -121,7 +122,25 @@ export class VacataireComponent {
     return null;
   }
 
-  onSubmit() {
+  filtreData(critere: String) {
+    this.vacatairesTmp = this.vacataires.filter(vacataire => vacataire.status === critere);
+  }
+
+  addVacataire() {
+    this.vacatairesService.addVacataire(this.getFirstName(), this.getLastName(), this.getPhone(), this.getEmail(), this.getGithub()).subscribe({
+      next: (response) => {
+        window.location.reload()
+      },
+      error: (error) => {
+        // Gestion des erreurs
+        console.error(error);
+      },
+      complete: () => {
+      }
+    });
+  }
+
+  editVacataire() {
     const userConfirmed = window.confirm("Êtes-vous sûr de vouloir modifier les informations de ce vacataire ?");
     if (userConfirmed) {
       // console.log(this.getVacataireEmail);
@@ -212,6 +231,7 @@ export class VacataireComponent {
         }
       });
     }
+
     
   } 
   
