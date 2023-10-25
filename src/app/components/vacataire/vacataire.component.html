@@ -149,11 +149,18 @@
             <p>skills : {{ vacataire.skills }}</p>
             <p>modules : {{ vacataire.modules }}</p>
           </div>
+
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" [attr.data-bs-target]="'#affecterVacataireModal-' + vacataire._id" data-bs-toggle="modal" data-bs-dismiss="modal" [disabled]="vacataire.status == 'affecter'">Affecter</button>
             <button type="button" class="btn btn-primary" [disabled]="vacataire.status != 'affecter'" (click)="desaffecterVacataire(cours[i]._id)">Désaffecter</button>
             <button type="button" class="btn btn-secondary" [attr.data-bs-target]="'#editVacataireModal-' + vacataire._id" data-bs-toggle="modal" data-bs-dismiss="modal" (click)="initializeFormWithId(vacataire._id)">Modifier</button>
-            <button type="button" class="btn btn-danger" (click)="deleteVacataire(vacataire._id)">Supprimer</button>
+            <button type="button" class="btn btn-danger" (click)="deleteVacataire(vacataire._id)" [disabled]="vacataire.status === 'affecter'">Supprimer</button>
+          </div>
+
+          <div class="modal-footer">
+            <div class="error" *ngIf="vacataire.status === 'affecter'">
+              <p>Suppression impossible ! Le vacataire est affecter à un cours</p>
+            </div>
           </div>
         </div>
       </div>

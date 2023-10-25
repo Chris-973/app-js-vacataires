@@ -138,7 +138,6 @@ export class VacataireComponent {
     for (let index = 0; index < this.coursTmp.length; index++) {
       const cours = this.coursTmp[index];
       if(cours.vacataire) {
-        console.log("Il y'a un vacataire affecter");
         this.vacatairesTmp = this.vacataires.filter(vacataire => vacataire._id === cours.vacataire._id);
         this.filtreCoursError = false
       } else {
@@ -190,20 +189,27 @@ export class VacataireComponent {
     }
   }
 
-  deleteVacataire(id: string) {
+  deleteVacataire(idVacataire: string) {
     const userConfirmed = window.confirm("Êtes-vous sûr de vouloir supprimer ce vacataire ?");
     if (userConfirmed) {
-      this.vacatairesService.deleteVacataire(id).subscribe({
-        next: (response) => {
-          // Traitement du succès
-          console.log(response);
-          window.location.reload();
-        },
-        error: (error) => {
-          // Gestion des erreurs
-          console.error(error);
-        }
-      });
+      const vacataires = this.vacataires = this.vacataires.filter(vacataire => vacataire._id === idVacataire);
+
+      vacataires.forEach(vacataire => {
+        console.log(vacataire);
+        
+    });
+
+      // this.vacatairesService.deleteVacataire(idVacataire).subscribe({
+      //   next: (response) => {
+      //     // Traitement du succès
+      //     console.log(response);
+      //     window.location.reload();
+      //   },
+      //   error: (error) => {
+      //     // Gestion des erreurs
+      //     console.error(error);
+      //   }
+      // });
     }   
   }
 
