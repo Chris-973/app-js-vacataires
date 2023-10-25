@@ -11,7 +11,11 @@ import { VacatairesService } from 'src/app/service/vacataires.service';
 export class VacataireComponent {
   public vacataires: any[] = []
   public vacatairesTmp: any[] = []
+
   public cours: any[] = []
+  public coursTmp: any[] = []
+
+  public filtreCoursError: boolean = false;
 
   vacataireForm = this.fb.group({
     _id: [''],
@@ -26,9 +30,9 @@ export class VacataireComponent {
     name: ['']
   })
 
-  constructor(private vacatairesService: VacatairesService, private coursService: CoursService, private fb: FormBuilder) {
-    this.vacatairesTmp = this.vacataires.slice();
-  }
+  
+
+  constructor(private vacatairesService: VacatairesService, private coursService: CoursService, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.vacatairesService.getVacataire().subscribe((data: any) => {
@@ -38,6 +42,7 @@ export class VacataireComponent {
     
     this.coursService.getCours().subscribe((data: any) => {
       this.cours = data;                     
+      this.coursTmp = data;                     
     });  
     
   }
@@ -122,8 +127,25 @@ export class VacataireComponent {
     return null;
   }
 
-  filtreData(critere: String) {
+  filtreStatus(critere: String) {
     this.vacatairesTmp = this.vacataires.filter(vacataire => vacataire.status === critere);
+    this.filtreCoursError = false
+  }
+
+  filtreCours(critere: String) {
+    this.coursTmp = this.cours.filter(cours => cours.name === critere);
+
+    for (let index = 0; index < this.coursTmp.length; index++) {
+      const cours = this.coursTmp[index];
+      if(cours.vacataire) {
+        console.log("Il y'a un vacataire affecter");
+        this.vacatairesTmp = this.vacataires.filter(vacataire => vacataire._id === cours.vacataire._id);
+        this.filtreCoursError = false
+      } else {
+        this.vacatairesTmp = [];        
+        this.filtreCoursError = true
+      }
+    }    
   }
 
   addVacataire() {
@@ -231,8 +253,6 @@ export class VacataireComponent {
         }
       });
     }
-
-    
   } 
   
 }

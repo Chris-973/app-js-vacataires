@@ -3,25 +3,26 @@
   <li class="dropdown">
     <a class="btn dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" disabled>Filtres</a>
     <ul class="dropdown-menu">
-      <li class="dropdown-submenu dropdown dropend"> <!-- Utilisation de la classe dropend pour le sous-menu -->
+      <li class="dropdown-submenu dropdown dropend"> 
         <a class="dropdown-item dropdown-toggle fs-6" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" disabled>Status</a>
         <ul class="dropdown-menu">
-          <li class="dropdown-item" (click)="filtreData('affecter')">Affecter</li>
+          <li class="dropdown-item" (click)="filtreStatus('affecter')">Affecter</li>
           <div class="dropdown-divider"></div>
-          <li class="dropdown-item" (click)="filtreData('non affecter')">Non affecter</li>
+          <li class="dropdown-item" (click)="filtreStatus('non affecter')">Non affecter</li>
           <div class="dropdown-divider"></div>
-          <li class="dropdown-item" (click)="filtreData('en attente')">En attente</li>
+          <li class="dropdown-item" (click)="filtreStatus('en attente')">En attente</li>
         </ul>
       </li>
       <div class="dropdown-divider"></div>
-      <li class="dropdown-submenu dropdown dropend"> <!-- Utilisation de la classe dropend pour le sous-menu -->
+      <li class="dropdown-submenu dropdown dropend"> 
         <a class="dropdown-item dropdown-toggle fs-6" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" disabled>Cours</a>
         <ul class="dropdown-menu">
-          <li class="dropdown-item">Affecter</li>
-          <div class="dropdown-divider"></div>
-          <li class="dropdown-item">Non affecter</li>
-          <div class="dropdown-divider"></div>
-          <li class="dropdown-item">En attente</li>
+          <div *ngFor="let cours of cours; let i = index">
+            <li class="dropdown-item" (click)="filtreCours(cours.name)">{{cours.name}}</li>
+            <div class="dropdown-divider" *ngIf="i < coursTmp.length - 1"></div>
+
+          </div>
+          
         </ul>
       </li>
     </ul>
@@ -111,7 +112,12 @@
 </div>
 
 <div class="vacataires">
-  <div *ngFor="let vacataire of vacatairesTmp; let i = index" class="vacataire">
+
+  <div *ngIf="filtreCoursError">
+    <p>Aucun Vacataire n'est affecter à ce cours</p>
+  </div>
+
+  <div *ngFor="let vacataire of vacatairesTmp || vacataires; let i = index" class="vacataire">
 
     <div class="expand" data-bs-toggle="modal" [attr.data-bs-target]="'#vacataireModal-' + vacataire._id">
       <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
