@@ -1,15 +1,33 @@
 <div class="buttons">
 
-  <a class="btn dropdown dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-    aria-expanded="false">Filtres</a>
-  <div class="dropdown-menu">
-    <a class="dropdown-item" href="#">Affecter</a>
-    <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="#">Non affecter</a>
-    <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="#">En attente</a>
-  </div>
-
+  <li class="dropdown">
+    <a class="btn dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" disabled>Filtres</a>
+    <ul class="dropdown-menu">
+      <li class="dropdown-submenu dropdown dropend"> <!-- Utilisation de la classe dropend pour le sous-menu -->
+        <a class="dropdown-item dropdown-toggle fs-6" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" disabled>Status</a>
+        <ul class="dropdown-menu">
+          <li class="dropdown-item">Affecter</li>
+          <div class="dropdown-divider"></div>
+          <li class="dropdown-item">Non affecter</li>
+          <div class="dropdown-divider"></div>
+          <li class="dropdown-item">En attente</li>
+        </ul>
+      </li>
+      <div class="dropdown-divider"></div>
+      <li class="dropdown-submenu dropdown dropend"> <!-- Utilisation de la classe dropend pour le sous-menu -->
+        <a class="dropdown-item dropdown-toggle fs-6" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" disabled>Cours</a>
+        <ul class="dropdown-menu">
+          <li class="dropdown-item">Affecter</li>
+          <div class="dropdown-divider"></div>
+          <li class="dropdown-item">Non affecter</li>
+          <div class="dropdown-divider"></div>
+          <li class="dropdown-item">En attente</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  
+  
   <div data-bs-toggle="modal" data-bs-target="#createVacataireModal" class="btn">Créer un vacataire</div>
 
   <div class="modal fade" id="createVacataireModal" tabindex="-1" aria-labelledby="createVacataireModalLabel"
@@ -84,8 +102,8 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
               <button type="submit" class="btn btn-primary" [disabled]="!createVacataireForm.valid">Créer le vacataire</button>
-              <button type="button" class="btn btn-secondary m-2" (click)="click()">click</button>
-              <button type="button" class="btn btn-secondary m-2" (click)="updateProfile()">Update Name</button>
+              <!-- <button type="button" class="btn btn-secondary m-2" (click)="click()">click</button> -->
+              <!-- <button type="button" class="btn btn-secondary m-2" (click)="updateProfile()">Update Name</button> -->
             </div>
           </form>
         </div>

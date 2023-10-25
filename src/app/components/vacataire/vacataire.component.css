@@ -1,3 +1,12 @@
+.buttons {
+  margin: 50px 0 50px 50px;
+  display: flex;
+  gap: 20px;
+}
+.btn {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
 .vacataires {
     margin: 0 20px 0 20px;
     display: grid;
@@ -35,7 +44,7 @@
     background-color: #C0C0C0; /* Fond gris pour le statut "en attente" */
   }
   
-  /* Style pour le statut "admis" */
+  /* Style pour le statut "affecter" */
   .status-green {
     background-color: #39C872; /* Fond bleu pour le statut "admis" */
   }

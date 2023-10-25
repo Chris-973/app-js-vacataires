@@ -46,12 +46,15 @@ export class VacataireComponent {
    */
   getVacataireStatusClass(status: string): string {
     switch (status) {
-      case 'en attente':
-        return 'status-gray';
-      case 'admis':
+      case 'affecter':
         return 'status-green';
-      default:
+      case 'non affecter':
         return 'status-red';
+      case 'en attente': {
+        return 'status-gray';
+      }
+      default:
+        return 'status-gray';
     }
   }
 
@@ -163,48 +166,7 @@ export class VacataireComponent {
     }   
   }
 
-  affecteVacataire(idCours: String, idVacataire: String) {
-
-    const userConfirmed = window.confirm("Êtes-vous sûr de vouloir affecter ce vacataire au cours ?");
-    if (userConfirmed) {
-      this.vacatairesService.affecteVacataire(idCours, idVacataire, 'chris', 'marie-angelique', '0648618251', 'chris@gmail.com', 'github//chris973').subscribe({
-          next: (response) => {
-            // Traitement du succès
-            console.log(response);
-          },
-          error: (error) => {
-            // Gestion des erreurs
-            console.error(error);
-          },
-          complete: () => {
-            window.location.reload()
-          }
-        });  
-
-      console.log('Vacataire affecter');
-      
-      /*
-        // this.editVacataire(this.form._id, this.form.name, this.form.lastName, this.form.phone, this.form.email, this.form.github)
-        this.vacatairesService.affecteVacataire(idCours, 'chris', 'marie-angelique', '0648618251', 'chris@gmail.com', 'github//chris973').subscribe({
-          next: (response) => {
-            // Traitement du succès
-            console.log(response);
-          },
-          error: (error) => {
-            // Gestion des erreurs
-            console.error(error);
-          },
-          complete: () => {
-            window.location.reload()
-          }
-        });    
-      */
-    }   
-    
-    
-  }
-
-  testAffecterVacataire(idCours: String, idVacataire: String) {
+  affecterVacataire(idCours: String, idVacataire: String) {
 
     const cours = this.cours.find(cours => cours._id === idCours);
     const vacataire = this.vacataires.find(vacataire => vacataire._id === idVacataire);
@@ -231,5 +193,26 @@ export class VacataireComponent {
     }   
     
   }
+
+  desaffecterVacataire(idCours: String) {
+
+    const userConfirmed = window.confirm("Êtes-vous sûr de vouloir désaffecter ce vacataire ?");
+    if (userConfirmed) {
+      this.coursService.desaffecterVacataire(idCours).subscribe({
+        next: (response) => {
+          // Traitement du succès
+          console.log(response);
+        },
+        error: (error) => {
+          // Gestion des erreurs
+          console.error(error);
+        },
+        complete: () => {
+          window.location.reload()
+        }
+      });
+    }
+    
+  } 
   
 }

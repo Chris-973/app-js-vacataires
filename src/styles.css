@@ -42,3 +42,15 @@ a {
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
+.dropdown:hover > .dropdown-menu, 
+.dropend:hover > .dropdown-menu{
+    display: block;
+    margin-top: 0;
+}
+
+.dropend:hover > .dropdown-menu{
+    position: absolute;
+    top: 0;
+    left: 100%;
+    margin-left: 0;
+}

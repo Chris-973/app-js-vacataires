@@ -59,7 +59,7 @@
     transition: all ease-in-out .3s;
   }
 
-  .active a::before{
+  .active-vacataires a::before {
     content: '';
     position: absolute;
     background-color: #111;
@@ -68,8 +68,8 @@
     height: 2px;
     transition: all ease-in-out .3s;
   }
-
-  .navbar a.active-link::before{
+  
+  .active-cours a::before {
     content: '';
     position: absolute;
     background-color: #111;
@@ -101,7 +101,7 @@
       height: 20vh;
       background-color: #fff;
       box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-      transform: translateY(80px);
+      transform: translateY(50px);
       transition: all ease-in-out .3s;
     }
     .navbar.active {
@@ -118,6 +118,7 @@
     .responsive-menu {
       display: block;
     }
+    
   } 
   
   

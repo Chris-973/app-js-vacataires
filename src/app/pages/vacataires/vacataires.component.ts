@@ -9,6 +9,7 @@ import { VacatairesService } from 'src/app/service/vacataires.service';
 })
 export class VacatairesComponent {
   public vacataires: any[] = []
+  public vacatairesTmp: any[] = []
 
   createVacataireForm = this.fb.group({
     firstName: ['', [Validators.required, this.noSpaceAllowed]],
@@ -87,5 +88,9 @@ export class VacatairesComponent {
         complete: () => {
         }
       });
+  }
+
+  filtreData(critere: String) {
+    this.vacatairesTmp = this.vacataires.filter(vacataire => vacataire.status === critere);
   }
 }

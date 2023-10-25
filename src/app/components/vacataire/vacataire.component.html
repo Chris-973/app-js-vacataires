@@ -25,16 +25,15 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <!-- Contenu du modal pour ce vacataire -->
             <p>Téléphone : {{ vacataire.phone }}</p>
             <p>Email : {{ vacataire.email }}</p>
             <p>github : {{ vacataire.github }}</p>
             <p>skills : {{ vacataire.skills }}</p>
             <p>modules : {{ vacataire.modules }}</p>
-            <!-- Ajoutez d'autres informations du vacataire si nécessaire -->
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" [attr.data-bs-target]="'#affecterVacataireModal-' + vacataire._id" data-bs-toggle="modal" data-bs-dismiss="modal" [disabled]="vacataire.status == 'admis'">Affecter</button>
+            <button type="button" class="btn btn-primary" [attr.data-bs-target]="'#affecterVacataireModal-' + vacataire._id" data-bs-toggle="modal" data-bs-dismiss="modal" [disabled]="vacataire.status == 'affecter'">Affecter</button>
+            <button type="button" class="btn btn-primary" [disabled]="vacataire.status != 'affecter'" (click)="desaffecterVacataire(cours[i]._id)">Désaffecter</button>
             <button type="button" class="btn btn-secondary" [attr.data-bs-target]="'#editVacataireModal-' + vacataire._id" data-bs-toggle="modal" data-bs-dismiss="modal" (click)="initializeFormWithId(vacataire._id)">Modifier</button>
             <button type="button" class="btn btn-danger" (click)="deleteVacataire(vacataire._id)">Supprimer</button>
           </div>
@@ -54,7 +53,7 @@
               name="affecteVacataireForm"
               #f="ngForm"
               [formGroup]="affecteVacataireForm"
-              (submit)="testAffecterVacataire(affecteVacataireForm.value.name || '', vacataire._id)"
+              (submit)="affecterVacataire(affecteVacataireForm.value.name || '', vacataire._id)"
             >
               <div class="mb-3">
                 <div class="form-label">Sélectionner le cours :</div>
@@ -68,7 +67,7 @@
               </div>
 
               <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-bs-toggle="modal" [attr.data-bs-target]="'#vacataireModal-' + vacataire._id">Annuler</button>
                 <button type="submit" class="btn btn-primary">Valider</button>
               </div>
             </form>
@@ -149,7 +148,7 @@
               </div>
     
               <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-bs-toggle="modal" [attr.data-bs-target]="'#vacataireModal-' + vacataire._id">Annuler</button>
                 <button type="submit" class="btn btn-primary" [disabled]="!editVacataireForm.valid">Modifier le vacataire</button>
               </div>  
             </form>

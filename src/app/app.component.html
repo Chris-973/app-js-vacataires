@@ -1,6 +1,4 @@
-<div class="gradient-div">
-    <!-- Contenu de la div ici -->
-  </div>
+  <div class="gradient-div"></div>
   
   <header *ngIf="!isNotFoundRoute()">
     <div class="navlogo">
@@ -9,8 +7,8 @@
   
     <div class="navbar" [ngClass]="{ 'active': isNavbarActive }">
       <ul>
-        <li [routerLinkActive]="'active'"><a routerLink="vacataires">Vacataires</a></li>
-        <li [routerLinkActive]="'active'"><a routerLink="cours">Cours</a></li>
+        <li [routerLinkActive]="'active-vacataires'"><a routerLink="vacataires">Vacataires</a></li>
+        <li [routerLinkActive]="'active-cours'"><a routerLink="cours">Cours</a></li>
       </ul>
     </div>
   
@@ -19,7 +17,5 @@
     </div>
     
   </header>
-
-<!-- <app-vacataires></app-vacataires> -->
 
 <router-outlet></router-outlet>

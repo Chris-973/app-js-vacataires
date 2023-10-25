@@ -7,8 +7,8 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class CoursService {
 
-  // private apiUrl  = 'http://localhost:3000/cours';
-  private apiUrl  = 'https://ap-js-vacataires-api.vercel.app/cours';
+  private apiUrl  = 'http://localhost:3000/cours';
+  // private apiUrl  = 'https://ap-js-vacataires-api.vercel.app/cours';
 
   constructor(private http: HttpClient) { }
 
@@ -34,5 +34,11 @@ export class CoursService {
       group: group,
     }
     return this.http.put(url, body);   
+  }
+
+  desaffecterVacataire(idCours: String) {
+    const url = this.apiUrl + '/desaffecterVacataire/' + idCours;
+    const body = ''
+    return this.http.patch(url, body)    
   }
 }
