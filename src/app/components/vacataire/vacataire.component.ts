@@ -83,6 +83,10 @@ export class VacataireComponent {
     }
   }
 
+  resetForm() {
+    this.vacataireForm.reset()
+  }
+
   /**
    * Accède aux contrôles du formulaire.
    * Notez que cette méthode retourne un objet, où chaque clé est le nom d'un contrôle et la valeur est le contrôle lui-même.
@@ -192,24 +196,17 @@ export class VacataireComponent {
   deleteVacataire(idVacataire: string) {
     const userConfirmed = window.confirm("Êtes-vous sûr de vouloir supprimer ce vacataire ?");
     if (userConfirmed) {
-      const vacataires = this.vacataires = this.vacataires.filter(vacataire => vacataire._id === idVacataire);
-
-      vacataires.forEach(vacataire => {
-        console.log(vacataire);
-        
-    });
-
-      // this.vacatairesService.deleteVacataire(idVacataire).subscribe({
-      //   next: (response) => {
-      //     // Traitement du succès
-      //     console.log(response);
-      //     window.location.reload();
-      //   },
-      //   error: (error) => {
-      //     // Gestion des erreurs
-      //     console.error(error);
-      //   }
-      // });
+      this.vacatairesService.deleteVacataire(idVacataire).subscribe({
+        next: (response) => {
+          // Traitement du succès
+          console.log(response);
+          window.location.reload();
+        },
+        error: (error) => {
+          // Gestion des erreurs
+          console.error(error);
+        }
+      });
     }   
   }
 
