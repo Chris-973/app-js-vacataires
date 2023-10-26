@@ -241,11 +241,13 @@ export class VacataireComponent {
     
   }
 
-  desaffecterVacataire(idCours: String) {
+  desaffecterVacataire(index: number) {
 
     const userConfirmed = window.confirm("Êtes-vous sûr de vouloir désaffecter ce vacataire ?");
     if (userConfirmed) {
-      this.coursService.desaffecterVacataire(idCours).subscribe({
+      const vacataire = this.vacataires[index]
+    
+      this.coursService.desaffecterVacataire(vacataire.cours._id).subscribe({
         next: (response) => {
           // Traitement du succès
           console.log(response);
@@ -260,5 +262,10 @@ export class VacataireComponent {
       });
     }
   } 
+
+  hello(i: number) {
+    console.log(this.vacataires[i].cours);
+        
+  }
   
 }
