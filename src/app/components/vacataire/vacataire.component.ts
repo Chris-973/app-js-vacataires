@@ -104,19 +104,6 @@ export class VacataireComponent {
   getEmail(): string { return this.vacataireForm.value.email || '' }
   getGithub(): string { return this.vacataireForm.value.github || '' }
 
-  // getVacataireId(index: number): string { return this.vacataires[index]._id }
-  // getVacataireFirstName(index: number): string { return this.vacataires[index].firstName }
-  // getVacataireLastName(index: number): string { return this.vacataires[index].lastName }
-  // getVacatairePhone(index: number): string { return this.vacataires[index].phone }
-  // getVacataireEmail(index: number): string { return this.vacataires[index].email }
-  // getVacataireGithub(index: number): string { return this.vacataires[index].github }
-
-  // getCoursId(index: number): string { return this.cours[index]._id }
-  // getCoursName(index: number): string { return this.cours[index].name }
-  // getCoursColor(index: number): string { return this.cours[index].color }
-  // getCoursGroup(index: number): string { return this.cours[index].group }
-
-
   /**
    * Validators personnalisé qui vérifie si la valeur du contrôle a des espaces
    * pour garantir que le champs du formulaire n'accepte pas de valeurs avec espaces.

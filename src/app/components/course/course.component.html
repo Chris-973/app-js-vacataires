@@ -6,9 +6,9 @@
       <li class="dropdown-submenu dropdown dropend"> 
         <a class="dropdown-item dropdown-toggle fs-6" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" disabled>Status</a>
         <ul class="dropdown-menu">
-          <li class="dropdown-item" >Vacataire affecter</li>
+          <li class="dropdown-item" (click)="filtreStatus()">Vacataire affecter</li>
           <div class="dropdown-divider"></div>
-          <li class="dropdown-item" >Vacataire non affecter</li>
+          <li class="dropdown-item" (click)="filtreStatus()">Vacataire non affecter</li>
           <div class="dropdown-divider"></div>
         </ul>
       </li>
@@ -89,7 +89,7 @@
 </div>
 
 <div class="courses">
-  <div *ngFor="let cours of cours; let i = index" class="course">
+  <div *ngFor="let cours of coursTmp; let i = index" class="course">
     <div class="expand" data-bs-toggle="modal" [attr.data-bs-target]="'#coursModal-' + cours._id">
       <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
     </div>

@@ -15,6 +15,8 @@ export class CourseComponent {
   public vacataires: any[] = [];
   public vacatairesTmp: any[] = [];
 
+  public filtreCoursStatus: boolean = false;
+
   coursForm = this.fb.group({
     _id: [''],
     name: ['', Validators.required],
@@ -100,6 +102,35 @@ export class CourseComponent {
     }
     
     return name.substring(0, 4);
+  }
+
+  filtreStatus() {
+    const cours = this.coursTmp = this.cours.filter(cours => cours.vacataire);
+
+    cours.forEach(cours => {
+      
+    });
+    this.filtreCoursStatus = false
+  }
+
+  filtreCours(critere: String) {
+    const cours = this.coursTmp = this.cours.filter(cours => cours.name === critere);
+
+    cours.forEach(cours => {
+      console.log(cours);
+      
+    });
+
+    // for (let index = 0; index < this.coursTmp.length; index++) {
+    //   const cours = this.coursTmp[index];
+    //   if(cours.vacataire) {
+    //     this.vacatairesTmp = this.vacataires.filter(vacataire => vacataire._id === cours.vacataire._id);
+    //     this.filtreCoursError = false
+    //   } else {
+    //     this.vacatairesTmp = [];        
+    //     this.filtreCoursError = true
+    //   }
+    // }    
   }
 
   addCours() {
