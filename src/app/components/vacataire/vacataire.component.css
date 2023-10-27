@@ -81,6 +81,9 @@ select option:disabled {
   .vacataires {
     grid-template-columns: repeat(2, 1fr);
   }
+  .content .email {
+    font-size: small;
+  }
 }
 
 
@@ -94,5 +97,9 @@ select option:disabled {
 @media screen and (max-width: 375px) {
   .vacataires {
     grid-template-columns: repeat(1, 1fr);
+  }
+  .vacataire {
+    flex-direction: column;
+    height: fit-content;
   }
 }

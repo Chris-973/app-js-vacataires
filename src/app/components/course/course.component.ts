@@ -10,9 +10,14 @@ import { VacatairesService } from 'src/app/service/vacataires.service';
 })
 export class CourseComponent {
   public cours: any[] = [];
-  public vacataires: any[] = [];
+  public coursTmp: any[] = [];
 
-  editCoursForm = this.fb.group({
+  public vacataires: any[] = [];
+  public vacatairesTmp: any[] = [];
+
+  public filtreCoursStatus: boolean = false;
+
+  coursForm = this.fb.group({
     _id: [''],
     name: ['', Validators.required],
     color: ['', [Validators.required, this.noSpaceAllowed]],
@@ -24,21 +29,21 @@ export class CourseComponent {
   ngOnInit() {
     this.coursService.getCours().subscribe((data: any) => {
       this.cours = data;                     
+      this.coursTmp = data;                     
     }); 
     
     this.vacatairesService.getVacataire().subscribe((data: any) => {
       this.vacataires = data;                     
+      this.vacatairesTmp = data;                     
     }); 
 
   }
 
-  initializeFormWithId(id: string) {
-    console.log(this.cours);
-    
+  initializeFormWithId(id: string) {    
     const cours = this.cours.find(cours => cours._id === id);
     
     if (cours) {
-      this.editCoursForm.patchValue({
+      this.coursForm.patchValue({
         _id: cours._id,
         name: cours.name,
         color: cours.color,
@@ -47,20 +52,24 @@ export class CourseComponent {
     }
   }
 
+  resetForm() {
+    this.coursForm.reset()
+  }
+
   /**
    * Accède aux contrôles du formulaire.
    * Notez que cette méthode retourne un objet, où chaque clé est le nom d'un contrôle et la valeur est le contrôle lui-même.
    */
-  get f() { return this.editCoursForm.controls }
+  get f() { return this.coursForm.controls }
 
   /**
    * Permet de retourner les valeurs des champs du formulaire
    * @returns
   */
-  getId(): string { return this.editCoursForm.value._id || '' }
-  getName(): string { return this.editCoursForm.value.name || '' }
-  getColor(): string { return this.editCoursForm.value.color || '' }
-  getGroup(): string { return this.editCoursForm.value.group || '' }
+  getId(): string { return this.coursForm.value._id || '' }
+  getName(): string { return this.coursForm.value.name || '' }
+  getColor(): string { return this.coursForm.value.color || '' }
+  getGroup(): string { return this.coursForm.value.group || '' }
 
   /**
    * Validators personnalisé qui vérifie si la valeur du contrôle a des espaces
@@ -95,7 +104,25 @@ export class CourseComponent {
     return name.substring(0, 4);
   }
 
-  onSubmit() {
+  filtreStatus() {}
+
+
+  addCours() {
+    // console.log(this.createCoursForm.value);
+    this.coursService.addCours(this.getName(), this.getColor(), this.getGroup()).subscribe({
+      next: (response) => {
+        window.location.reload()
+      },
+      error: (error) => {
+        // Gestion des erreurs
+        console.error(error);
+      },
+      complete: () => {
+      }
+    });
+  }
+
+  editCours() {
     const userConfirmed = window.confirm("Êtes-vous sûr de vouloir modifier les informations de ce cours ?");
     if (userConfirmed) {
       // this.editVacataire(this.form._id, this.form.name, this.form.lastName, this.form.phone, this.form.email, this.form.github)

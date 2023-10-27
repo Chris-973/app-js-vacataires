@@ -1,3 +1,13 @@
+.buttons {
+    margin: 50px 0 50px 50px;
+    display: flex;
+    gap: 20px;
+}
+
+.btn {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
 .courses {
     margin: 0 20px 0 20px;
     display: grid;
@@ -26,7 +36,7 @@
     height: 150px;
 }
 
-.cours-color {
+.coursColor {
     position: absolute;
     height: 100%;
     top: 0;
@@ -34,6 +44,11 @@
     border-radius: 10px 0 0 10px;
     width: 10%;
     /* background-color: red; */
+}
+
+.cours-color {
+    display: flex;
+    align-items: center;
 }
 
 .f-cours-color {
@@ -53,6 +68,10 @@ input[type=color] {
     .courses {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .cours-name h1{
+        font-size: x-large;
+    }
 }
 
 
@@ -66,5 +85,9 @@ input[type=color] {
 @media screen and (max-width: 375px) {
     .courses {
         grid-template-columns: repeat(1, 1fr);
+    }
+
+    .cours-name h1{
+        font-size: large;
     }
 }
