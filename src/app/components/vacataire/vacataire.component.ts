@@ -16,6 +16,7 @@ export class VacataireComponent {
   public coursTmp: any[] = []
 
   public filtreCoursError: boolean = false;
+  public filtreStatusError: boolean = false;
 
   vacataireForm = this.fb.group({
     _id: [''],
@@ -116,10 +117,16 @@ export class VacataireComponent {
 
   filtreStatus(critere: String) {
     this.vacatairesTmp = this.vacataires.filter(vacataire => vacataire.status === critere);
-    this.filtreCoursError = false
+    if(this.vacatairesTmp.length === 0) {
+      this.filtreStatusError = true
+    } else {
+      this.filtreStatusError = false
+    }
   }
 
   filtreCours(critere: String) {
+    this.filtreStatusError = false // reset de la valeur du bool 
+
     this.coursTmp = this.cours.filter(cours => cours.name === critere);
 
     for (let index = 0; index < this.coursTmp.length; index++) {

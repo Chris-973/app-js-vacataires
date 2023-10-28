@@ -6,21 +6,9 @@
       <li class="dropdown-submenu dropdown dropend"> 
         <a class="dropdown-item dropdown-toggle fs-6" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" disabled>Status</a>
         <ul class="dropdown-menu">
-          <li class="dropdown-item" (click)="filtreStatus()">Avec vacataire affecter</li>
+          <li class="dropdown-item" (click)="filtreStatus('avec')">Avec vacataire affecter</li>
           <div class="dropdown-divider"></div>
-          <li class="dropdown-item" (click)="filtreStatus()">Sans vacataire affecter</li>
-        </ul>
-      </li>
-      <div class="dropdown-divider"></div>
-      <li class="dropdown-submenu dropdown dropend"> 
-        <a class="dropdown-item dropdown-toggle fs-6" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" disabled>Cours</a>
-        <ul class="dropdown-menu">
-          <div *ngFor="let cours of cours; let i = index">
-            <li class="dropdown-item">{{cours.name}}</li>
-            <div class="dropdown-divider" *ngIf="i < coursTmp.length - 1"></div>
-
-          </div>
-          
+          <li class="dropdown-item" (click)="filtreStatus('sans')">Sans vacataire affecter</li>
         </ul>
       </li>
     </ul>
@@ -88,6 +76,16 @@
 </div>
 
 <div class="courses">
+
+  <div *ngIf="filtreStatusError" class="filtreCoursError alert alert-warning d-flex align-items-center" role="alert">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+      <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+    </svg>
+    <div>
+      Aucun cours avec ce status
+    </div>
+  </div>
+
   <div *ngFor="let cours of coursTmp; let i = index" class="course">
     <div class="expand" data-bs-toggle="modal" [attr.data-bs-target]="'#coursModal-' + cours._id">
       <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
@@ -116,7 +114,7 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="coursModalLabel">{{ cours.name }} {{ cours.lastName }}</h5>
+            <h5 class="modal-title" id="coursModalLabel">{{ cours.name }}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">

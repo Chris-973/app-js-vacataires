@@ -15,7 +15,7 @@ export class CourseComponent {
   public vacataires: any[] = [];
   public vacatairesTmp: any[] = [];
 
-  public filtreCoursStatus: boolean = false;
+  public filtreStatusError: boolean = false;
 
   coursForm = this.fb.group({
     _id: [''],
@@ -104,7 +104,19 @@ export class CourseComponent {
     return name.substring(0, 4);
   }
 
-  filtreStatus() {}
+  filtreStatus(statut: string) {
+    if (statut === 'avec') {
+      this.coursTmp = this.cours.filter(cours => cours.vacataire !== undefined);
+    } else if (statut === 'sans') {
+      this.coursTmp = this.cours.filter(cours => cours.vacataire === undefined);
+    }
+
+    if(this.coursTmp.length === 0) {
+      this.filtreStatusError = true
+    } else {
+      this.filtreStatusError = false
+    }
+  }
 
 
   addCours() {

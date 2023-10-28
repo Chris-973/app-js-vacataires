@@ -64,6 +64,17 @@ input[type=color] {
     overflow: hidden;
 }
 
+.filtreCoursError {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #ccc;
+    padding: 20px;
+    text-align: center;
+    font-size: x-large;
+  }
+
 @media screen and (max-width: 768px) {
     .courses {
         grid-template-columns: repeat(2, 1fr);
@@ -72,6 +83,10 @@ input[type=color] {
     .cours-name h1{
         font-size: x-large;
     }
+    .filtreCoursError {
+        font-size: large;
+      }
+    
 }
 
 
@@ -79,6 +94,12 @@ input[type=color] {
     .courses {
         grid-template-columns: repeat(1, 1fr);
     }
+    .filtreCoursError {
+        font-size: medium;
+        transform: translate(-20%, -50%);
+        left: 30%;
+    
+      }
 
 }
 
