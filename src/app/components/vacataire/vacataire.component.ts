@@ -25,6 +25,7 @@ export class VacataireComponent {
     phone: ['', [Validators.required, Validators.pattern('[0-9 ]+'), this.noSpaceAllowed]],
     email: ['', [Validators.required, this.noSpaceAllowed]],
     github: ['', [Validators.required, this.noSpaceAllowed]],
+    img: ['', Validators.required]
   })
 
   affecteVacataireForm = this.fb.group({

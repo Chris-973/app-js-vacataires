@@ -286,6 +286,15 @@
                 </div>
 
               </div>
+              
+              <div class=" mb-2 selectImg">
+                <label style="text-align: left; color: #8f8f8f;" for="img">Select image:</label>
+                <input type="file" class="form-control" id="img" name="img" formControlName="img" name="img" accept="image/*">
+
+                <div class="form_error" *ngIf="vacataireForm.controls['img'].errors">
+                  <div class="form-text text-danger" *ngIf="vacataireForm.controls['img'].errors?.['required']">Veuillez choisir une image de profil</div>
+                </div>
+              </div>
     
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-bs-toggle="modal" [attr.data-bs-target]="'#vacataireModal-' + vacataire._id">Annuler</button>

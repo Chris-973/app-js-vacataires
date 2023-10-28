@@ -88,6 +88,12 @@ select option:disabled {
   font-size: x-large;
 }
 
+.selectImg {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+}
+
 @media screen and (max-width: 768px) {
   .vacataires {
     grid-template-columns: repeat(2, 1fr);
