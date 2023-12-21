@@ -20,7 +20,7 @@ export class CourseComponent {
   coursForm = this.fb.group({
     _id: [''],
     name: ['', Validators.required],
-    color: ['', [Validators.required, this.noSpaceAllowed]],
+    color: ['#845798', []],
     group: ['', [Validators.required, this.noSpaceAllowed]],
   })
 
@@ -28,20 +28,20 @@ export class CourseComponent {
 
   ngOnInit() {
     this.coursService.getCours().subscribe((data: any) => {
-      this.cours = data;                     
-      this.coursTmp = data;                     
-    }); 
-    
+      this.cours = data;
+      this.coursTmp = data;
+    });
+
     this.vacatairesService.getVacataire().subscribe((data: any) => {
-      this.vacataires = data;                     
-      this.vacatairesTmp = data;                     
-    }); 
+      this.vacataires = data;
+      this.vacatairesTmp = data;
+    });
 
   }
 
-  initializeFormWithId(id: string) {    
+  initializeFormWithId(id: string) {
     const cours = this.cours.find(cours => cours._id === id);
-    
+
     if (cours) {
       this.coursForm.patchValue({
         _id: cours._id,
@@ -88,19 +88,19 @@ export class CourseComponent {
   abbreviateCourseName(name: string) {
     // Supprime les accents et caractères spéciaux, puis divise en mots
     const words = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z ]/g, "").split(" ");
-  
+
     // Crée un tableau de mots abrégés en utilisant les initiales
     if(name.includes(' ')){
       const abbreviatedWords = words.map(word => {
         return word.charAt(0).toUpperCase();
       });
-    
+
       // Rejoindre les mots abrégés pour former le nom abrégé
       const abbreviatedName = abbreviatedWords.join("");
 
       return abbreviatedName;
     }
-    
+
     return name.substring(0, 4);
   }
 
@@ -150,10 +150,10 @@ export class CourseComponent {
         complete: () => {
           window.location.reload()
         }
-      });    
-    }   
+      });
+    }
   }
-  
+
   deleteCours(id: string) {
     const userConfirmed = window.confirm("Êtes-vous sûr de vouloir supprimer ce cours ?");
     if (userConfirmed) {
@@ -168,6 +168,6 @@ export class CourseComponent {
           console.error(error);
         }
       });
-    }   
+    }
   }
 }

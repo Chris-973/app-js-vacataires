@@ -3,7 +3,7 @@
   <li class="dropdown">
     <a class="btn dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" disabled>Filtres</a>
     <ul class="dropdown-menu">
-      <li class="dropdown-submenu dropdown dropend"> 
+      <li class="dropdown-submenu dropdown dropend">
         <a class="dropdown-item dropdown-toggle fs-6" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" disabled>Status</a>
         <ul class="dropdown-menu">
           <li class="dropdown-item" (click)="filtreStatus('affecter')">Affecter</li>
@@ -14,7 +14,7 @@
         </ul>
       </li>
       <div class="dropdown-divider"></div>
-      <li class="dropdown-submenu dropdown dropend"> 
+      <li class="dropdown-submenu dropdown dropend">
         <a class="dropdown-item dropdown-toggle fs-6" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" disabled>Cours</a>
         <ul class="dropdown-menu">
           <div *ngFor="let cours of cours; let i = index">
@@ -22,14 +22,14 @@
             <div class="dropdown-divider" *ngIf="i < coursTmp.length - 1"></div>
 
           </div>
-          
+
         </ul>
       </li>
     </ul>
   </li>
 
   <div data-bs-toggle="modal" data-bs-target="#createVacataireModal" class="btn">Créer un vacataire</div>
-  
+
   <div class="modal fade" id="createVacataireModal" tabindex="-1" aria-labelledby="createVacataireModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -39,8 +39,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form class="row g-2" 
-          name="vacataireForm" 
+        <form class="row g-2"
+          name="vacataireForm"
           [formGroup]="vacataireForm"
           (ngSubmit)="addVacataire()"
         >
@@ -52,7 +52,7 @@
             <div class="form_error" *ngIf="f.firstName.errors && f.firstName.touched">
               <div class="form-text text-danger" *ngIf="f.firstName.errors?.['required']">Veuillez saisir un prénom</div>
               <div class="form-text text-danger" *ngIf="f.firstName.errors?.['noSpaceAllowed']">Veuillez ne pas saisir d'espaces</div>
-            </div>  
+            </div>
           </div>
 
           <div class="form-floating mb-2">
@@ -63,7 +63,7 @@
               <div class="form-text text-danger" *ngIf="f.lastName.errors?.['required']">Veuillez saisir un nom de famille</div>
               <div class="form-text text-danger" *ngIf="f.lastName.errors?.['noSpaceAllowed']">Veuillez ne pas saisir d'espaces</div>
             </div>
-          </div>  
+          </div>
 
           <div class="form-floating mb-2">
             <input type="text" class="form-control" id="phone" formControlName="phone" placeholder="name@example.com" maxlength="10" minlength="10">
@@ -95,7 +95,7 @@
             <div class="form_error" *ngIf="f.github.errors && f.github.touched">
               <div class="form-text text-danger" *ngIf="f.github.errors?.['required']">Veuillez saisir votre profil GitHub</div>
               <div class="form-text text-danger" *ngIf="f.github.errors?.['noSpaceAllowed']">Veuillez ne pas saisir d'espaces</div>
-              
+
             </div>
           </div>
 
@@ -168,7 +168,7 @@
             <ng-template #noAffectation>
               Ce vacataire n'assure aucun cours
             </ng-template>
-          
+
           </div>
 
           <div class="modal-footer">
@@ -231,7 +231,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form 
+            <form
             class="row g-2"
             name="vacataireForm"
             #f="ngForm"
@@ -244,10 +244,10 @@
 
                 <div class="form_error" *ngIf="vacataireForm.controls['firstName'].errors && vacataireForm.controls['firstName'].touched">
                   <div class="form-text text-danger" *ngIf="vacataireForm.controls['firstName'].errors?.['required']">Veuillez saisir un prénom</div>
-                  <div class="form-text text-danger" *ngIf="vacataireForm.controls['firstName'].errors?.['noSpaceAllowed']">Veuillez ne pas saisir d'espaces</div>                  
+                  <div class="form-text text-danger" *ngIf="vacataireForm.controls['firstName'].errors?.['noSpaceAllowed']">Veuillez ne pas saisir d'espaces</div>
                 </div>
               </div>
-    
+
               <div class="form-floating mb-2">
                 <input type="text" class="form-control" id="lastName" name="lastName" formControlName="lastName" placeholder="name@example.com">
                 <label for="lastName">Nom de famille :</label>
@@ -256,9 +256,9 @@
                   <div class="form-text text-danger" *ngIf="vacataireForm.controls['lastName'].errors?.['required']">Veuillez saisir un nom de famille</div>
                   <div class="form-text text-danger" *ngIf="vacataireForm.controls['lastName'].errors?.['noSpaceAllowed']">Veuillez ne pas saisir d'espaces</div>
                 </div>
-    
+
               </div>
-    
+
               <div class="form-floating mb-2">
                 <input type="text" class="form-control" id="phone" name="phone" formControlName="phone" placeholder="name@example.com" maxlength="10" minlength="10">
                 <label for="phone">Numéro de téléphone :</label>
@@ -269,9 +269,9 @@
                   <div class="form-text text-danger" *ngIf="vacataireForm.controls['phone'].errors?.['minlength']">Le numéro de téléphone doit être composé de 10 chiffres</div>
                   <div class="form-text text-danger" *ngIf="vacataireForm.controls['phone'].errors?.['noSpaceAllowed']">Veuillez ne pas saisir d'espaces</div>
                 </div>
-    
+
               </div>
-    
+
               <div class="form-floating mb-2">
                 <input type="email" class="form-control" id="email" name="email" formControlName="email" placeholder="name@example.com" email="true">
                 <label for="email">Adresse email :</label>
@@ -280,9 +280,9 @@
                   <div class="form-text text-danger" *ngIf="vacataireForm.controls['email'].errors?.['required']">Veuillez saisir une adresse email</div>
                   <div class="form-text text-danger" *ngIf="vacataireForm.controls['email'].errors?.['email']">L'email saisie est incorrecte</div>
                 </div>
-    
+
               </div>
-    
+
               <div class="form-floating mb-2">
                 <input type="text" class="form-control" id="github" name="github" formControlName="github" placeholder="name@example.com">
                 <label for="github ">Profil GitHub :</label>
@@ -293,20 +293,20 @@
                 </div>
 
               </div>
-              
-              <div class=" mb-2 selectImg">
+
+              <!-- <div class=" mb-2 selectImg">
                 <label style="text-align: left; color: #8f8f8f;" for="img">Select image:</label>
                 <input type="file" class="form-control" id="img" name="img" formControlName="img" name="img" accept="image/*">
 
                 <div class="form_error" *ngIf="vacataireForm.controls['img'].errors">
                   <div class="form-text text-danger" *ngIf="vacataireForm.controls['img'].errors?.['required']">Veuillez choisir une image de profil</div>
                 </div>
-              </div>
-    
+              </div> -->
+
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-bs-toggle="modal" [attr.data-bs-target]="'#vacataireModal-' + vacataire._id">Annuler</button>
                 <button type="submit" class="btn btn-primary" [disabled]="!vacataireForm.valid">Modifier le vacataire</button>
-              </div>  
+              </div>
             </form>
           </div>
         </div>
@@ -315,5 +315,5 @@
 
 
   </div>
-  
+
 </div>

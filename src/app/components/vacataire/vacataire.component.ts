@@ -25,34 +25,34 @@ export class VacataireComponent {
     phone: ['', [Validators.required, Validators.pattern('[0-9 ]+'), this.noSpaceAllowed]],
     email: ['', [Validators.required, this.noSpaceAllowed]],
     github: ['', [Validators.required, this.noSpaceAllowed]],
-    img: ['', Validators.required]
+    // img: ['', Validators.required]
   })
 
   affecteVacataireForm = this.fb.group({
     name: ['']
   })
 
-  
+
 
   constructor(private vacatairesService: VacatairesService, private coursService: CoursService, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.vacatairesService.getVacataire().subscribe((data: any) => {
-      this.vacataires = data;                     
-      this.vacatairesTmp = data;                     
-    });  
-    
+      this.vacataires = data;
+      this.vacatairesTmp = data;
+    });
+
     this.coursService.getCours().subscribe((data: any) => {
-      this.cours = data;                     
-      this.coursTmp = data;                     
-    });  
-    
+      this.cours = data;
+      this.coursTmp = data;
+    });
+
   }
 
 
   /**
    * permet de déterminer le style de la div status selon le status du vacataire
-   * 
+   *
    * @param status : le status du vacataire
    * @returns : le style de la div status du vacataire
    */
@@ -72,7 +72,7 @@ export class VacataireComponent {
 
   initializeFormWithId(id: string) {
     const vacataire = this.vacataires.find(vacataire => vacataire._id === id);
-    
+
     if (vacataire) {
       this.vacataireForm.patchValue({
         _id: vacataire._id,
@@ -126,7 +126,7 @@ export class VacataireComponent {
   }
 
   filtreCours(critere: String) {
-    this.filtreStatusError = false // reset de la valeur du bool 
+    this.filtreStatusError = false // reset de la valeur du bool
 
     this.coursTmp = this.cours.filter(cours => cours.name === critere);
 
@@ -136,10 +136,10 @@ export class VacataireComponent {
         this.vacatairesTmp = this.vacataires.filter(vacataire => vacataire._id === cours.vacataire._id);
         this.filtreCoursError = false
       } else {
-        this.vacatairesTmp = [];        
+        this.vacatairesTmp = [];
         this.filtreCoursError = true
       }
-    }    
+    }
   }
 
   addVacataire() {
@@ -161,13 +161,13 @@ export class VacataireComponent {
     if (userConfirmed) {
       // console.log(this.getVacataireEmail);
       // console.log(this.getEmail);
-      
-      
+
+
       this.vacatairesService.editVacataire(this.getId(),
-        this.getFirstName(), 
-        this.getLastName(), 
-        this.getPhone(), 
-        this.getEmail(), 
+        this.getFirstName(),
+        this.getLastName(),
+        this.getPhone(),
+        this.getEmail(),
         this.getGithub()).subscribe({
           next: (response) => {
             // Traitement du succès
@@ -197,8 +197,8 @@ export class VacataireComponent {
           // Gestion des erreurs
           console.error(error);
         }
-      });  
-    }   
+      });
+    }
   }
 
   affecterVacataire(idCours: String, idVacataire: String) {
@@ -224,9 +224,9 @@ export class VacataireComponent {
           }
         });
       }
-      
-    }   
-    
+
+    }
+
   }
 
   desaffecterVacataire(index: number) {
@@ -234,7 +234,7 @@ export class VacataireComponent {
     const userConfirmed = window.confirm("Êtes-vous sûr de vouloir désaffecter ce vacataire ?");
     if (userConfirmed) {
       const vacataire = this.vacataires[index]
-    
+
       this.coursService.desaffecterVacataire(vacataire.cours._id).subscribe({
         next: (response) => {
           // Traitement du succès
@@ -249,11 +249,11 @@ export class VacataireComponent {
         }
       });
     }
-  } 
+  }
 
   hello(i: number) {
     console.log(this.vacataires[i].cours);
-        
+
   }
-  
+
 }
