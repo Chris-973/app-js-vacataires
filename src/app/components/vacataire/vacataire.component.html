@@ -162,6 +162,7 @@
             <p>Téléphone : {{ vacataire.phone }}</p>
             <p>Email : {{ vacataire.email }}</p>
             <p>github : {{ vacataire.github }}</p>
+            <p>{{ vacataire._id }}</p>
             <ng-container *ngIf="vacataire.cours; else noAffectation">
               Cours assurer : {{ vacataire.cours.name }}
             </ng-container>
