@@ -144,6 +144,7 @@
       <div class="name">{{ vacataire.firstName }} {{ vacataire.lastName }}</div>
       <div class="email">{{ vacataire.email }}</div>
       <div class="skills">Skills : {{ vacataire.skills }}</div>
+      <div class="skills">{{ vacataire._id }}</div>
     </div>
 
     <div class="status" [ngClass]="getVacataireStatusClass(vacataire.status)"></div>
